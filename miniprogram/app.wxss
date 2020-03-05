@@ -5,7 +5,16 @@
   align-items: center;
   box-sizing: border-box;
 } 
-
+.page {
+  position: absolute;
+  width: 100%;
+  min-height: 100%;
+  box-sizing: border-box;
+  background-color: rgb(255, 255, 255);
+  padding-bottom: 100rpx;
+  overflow: hidden;
+  z-index: -1;
+}
 button {
   background: initial;
 }
