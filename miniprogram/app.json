@@ -1,5 +1,8 @@
 {
   "pages": [
+    "pages/index/index",
+    "pages/todo/todo",
+    "pages/newtask/newtask",
     "pages/me/me"
   ],
   "usingComponents": {
@@ -10,7 +13,9 @@
     "van-tab": "@vant/weapp/tab/index",
     "van-tabs": "@vant/weapp/tabs/index",
     "van-dialog": "@vant/weapp/dialog/index",
-    "van-datetime-picker": "@vant/weapp/datetime-picker/index"
+    "van-datetime-picker": "@vant/weapp/datetime-picker/index",
+    "van-action-sheet": "@vant/weapp/action-sheet/index",
+    "van-button": "@vant/weapp/button/index"
   },
   "window": {
     "backgroundTextStyle": "light",

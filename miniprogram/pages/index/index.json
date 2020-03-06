@@ -1,11 +1,7 @@
 {
   "usingComponents": {
-    "vtu-navbar": "/miniprogram_npm/vtuweapp/navbar/vtu-navbar",
-    "vtu-radio-group": "/miniprogram_npm/vtuweapp/radio/group/vtu-radio-group",
-    "vtu-radio": "/miniprogram_npm/vtuweapp/radio/radio/vtu-radio",
-    "vtu-tabbar": "/miniprogram_npm/vtuweapp/tabbar/tabbar/vtu-tabbar",
-    "vtu-tabbar-item": "/miniprogram_npm/vtuweapp/tabbar/item/vtu-tabbar-item",
-    "vtu-panel": "/miniprogram_npm/vtuweapp/panel/vtu-panel",
-    "vtu-cell": "/miniprogram_npm/vtuweapp/cell/item/vtu-cell"
+    "page1": "../pages/todo/todo",
+    "page2": "../pages/newtask/newtask",
+    "page3": "../pages/me/me"
   }
 }
