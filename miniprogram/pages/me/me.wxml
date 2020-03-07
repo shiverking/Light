@@ -1,31 +1,45 @@
 <!--me.wxml-->
 <view class="page">
-<image class="user-card__bg" src="/images/me-bg.png" mode="aspectFill"></image>
-<view class="user-card__info">
-  <image class="user-card__head" src="../../images/icon-user.png"></image>
+<view class="user-card">
+  <van-row>
+   <van-col span="4">
+    <image class="user-card__head" src="../../images/icon-user.png"></image>
+   </van-col>
+   <van-col span="20">
+    <van-cell title="用户名" is-link value="详细信息" size="small" label="描述信息" />
+   </van-col>
+  </van-row>
   <!-- <text class="user-card__name">{{ userInfo.nickName }}</text> -->
-  <text class="user-card__name">名字示例</text>
+  <!-- <text class="user-card__name">名字示例</text> -->
+  <van-cell title="我的打卡记录" icon="search" />
 </view>
-    <view class="user-card__links">
-      <view class="user-card__linkItem" bindtap="linkToTodos">
-        <label class="user-card__linkLabel">目前的任务</label>
-        <text class="user-card__linkValue">{{ todosUncompletedCount }}</text>
-      </view>
-      <view class="user-card__linkItem" bindtap="linkToTodos">
-        <label class="user-card__linkLabel">已完成</label>
-        <text class="user-card__linkValue">{{ todosCompletedCount }}</text>
-      </view>
-      <view class="user-card__linkItem" bindtap="linkToNotes">
-        <label class="user-card__linkLabel">已坚持天数</label>
-        <text class="user-card__linkValue">{{ notesCount }}</text>
-      </view>
-    </view>
-<view class="charts-card">
+
+<van-grid column-num="3">
+  <van-grid-item icon="fire" text="目前的任务" />
+  <van-grid-item icon="checked" text="已完成" />
+  <van-grid-item icon="clock" text="已坚持天数" />
+</van-grid>
+<van-tabs type="line" color="rgb(65,105,225)" >
+  <van-tab title="任务完成率">
+   <view class="charts-card">
     <text class="charts-card__header">任务完成率</text>
     <canvas class="charts-card__body" canvas-id="chartsA"></canvas>
   </view>
-  <view class="charts-card">
+  </van-tab>
+  <van-tab title="每天完成量">
+   <view class="charts-card">
     <view class="charts-card__header">每天完成量</view>
     <canvas class="charts-card__body" canvas-id="chartsB" bindtouchstart="touchHandler" bindtouchmove="moveHandler" bindtouchend="touchEndHandler"></canvas>
   </view>
+  </van-tab>
+  <van-tab title="任务统计">
+   <view class="charts-card">
+    <view class="charts-card__header">任务统计</view>
+    <canvas class="charts-card__body" canvas-id="chartsB" bindtouchstart="touchHandler" bindtouchmove="moveHandler" bindtouchend="touchEndHandler"></canvas>
+  </view>
+  </van-tab>
+</van-tabs>
+<van-cell title="设置" is-link />
+<van-cell title="联系我们" is-link />
+<van-cell title="开发者信息" is-link />
 </view>

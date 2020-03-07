@@ -1,4 +1,5 @@
 /**app.wxss**/
+@import "vant.wxss";
 .container {
   display: flex;
   flex-direction: column;
@@ -10,7 +11,7 @@
   width: 100%;
   min-height: 100%;
   box-sizing: border-box;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(245, 245, 245);
   padding-bottom: 100rpx;
   overflow: hidden;
   z-index: -1;

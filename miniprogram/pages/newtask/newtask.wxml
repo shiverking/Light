@@ -1,5 +1,35 @@
 <!--miniprogram/pages/newtask/newtask.wxml-->
 <view class="page">
+<van-cell title="自定义打卡项目" icon="add-o"></van-cell>
+<van-cell title="请选择一个推荐的打卡项目" icon="good-job-o" />
+<van-tabs animated>
+  <!-- 以下项目都只是作为测试用 -->
+  <van-tab title="热门">
+   <van-cell title="测试一" is-link />
+   <van-cell title="测试二" is-link />
+   <van-cell title="测试三" is-link />
+  </van-tab>
+  <van-tab title="健康">
+   <van-cell title="测试一" is-link />
+   <van-cell title="测试二" is-link />
+   <van-cell title="测试三" is-link />
+  </van-tab>
+  <van-tab title="运动">
+   <van-cell title="测试一" is-link />
+   <van-cell title="测试二" is-link />
+   <van-cell title="测试三" is-link />
+  </van-tab>
+  <van-tab title="学习">
+   <van-cell title="测试一" is-link />
+   <van-cell title="测试二" is-link />
+   <van-cell title="测试三" is-link />
+  </van-tab>
+  <van-tab title="我的">
+   <van-cell title="测试一" is-link />
+   <van-cell title="测试二" is-link />
+   <van-cell title="测试三" is-link />
+  </van-tab>
+</van-tabs>
 <van-dialog
   use-slot
   title="标题"

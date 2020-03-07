@@ -15,7 +15,17 @@
     "van-dialog": "@vant/weapp/dialog/index",
     "van-datetime-picker": "@vant/weapp/datetime-picker/index",
     "van-action-sheet": "@vant/weapp/action-sheet/index",
-    "van-button": "@vant/weapp/button/index"
+    "van-button": "@vant/weapp/button/index",
+    "van-panel": "@vant/weapp/panel/index",
+    "van-divider": "@vant/weapp/divider/index",
+    "van-steps": "@vant/weapp/steps/index",
+    "van-cell": "@vant/weapp/cell/index",
+    "van-cell-group": "@vant/weapp/cell-group/index",
+    "van-icon": "@vant/weapp/icon/index",
+    "van-grid": "@vant/weapp/grid/index",
+    "van-grid-item": "@vant/weapp/grid-item/index",
+    "van-row": "@vant/weapp/row/index",
+    "van-col": "@vant/weapp/col/index"
   },
   "window": {
     "backgroundTextStyle": "light",
