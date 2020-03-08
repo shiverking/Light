@@ -1,1 +1,28 @@
-<!--miniprogram/pages/todo/todo.wxm
+<!--miniprogram/pages/todo/todo.wxm-->
+<view>qwdwd</view>
+<view>
+ <van-dialog
+  use-slot
+  title="开始时间"
+  show="{{ show }}"
+  bind:close="onClose"
+>
+ <van-datetime-picker
+  type="datetime"
+  value="{{currentDate}}"
+  bind:input="onInput"
+  min-date="{{ minTime }}"
+  formatter="{{ formatter }}"
+/>
+</van-dialog>
+<van-button type="primary" bindtap="showdialog" name="begin">开始时间</van-button>
+<van-button type="primary" bindtap="showdialog" name="end">结束时间</van-button>
+</view>
+<view>{{currentTime}}</view>
+<form bindsubmit="uploadTask">
+<input value="{{currentTime}} "name="times"></input>
+<input placeholder="Task" name="todo"> </input>
+<button formType="submit">Submit</button>
+</form>
+<button bindtap="dingyue">dingyuexiaoxi</button>
+<button bindtap="xiafang">xiafangxiaoxi</button>

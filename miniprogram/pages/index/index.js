@@ -32,6 +32,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(1);
     this.data.tabbar.forEach((item, index, arr) => {
       this.data.scrollTopArray[index] = 0; //加载的时候默认为第一个界面
       // item.isFirstLoad = true
@@ -44,7 +45,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.updateSubPageShowHide(this.data.active);
+   this.updateSubPageShowHide(this.data.active);
   },
 
   /**
