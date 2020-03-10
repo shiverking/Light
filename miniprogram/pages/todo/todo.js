@@ -1,5 +1,5 @@
 // miniprogram/pages/todo/todo.js
-Page({
+Component({
   data: {
     active: 0,
     icon: {
@@ -7,10 +7,19 @@ Page({
       active: 'https://img.yzcdn.cn/vant/user-active.png'
     }
   },
-  onChange(event) {
-    this.setData({ active: event.detail });
+  methods:{
+    onClickLeft() {
+      wx.showToast({ title: '点击返回', icon: 'none' });
+    },
   },
-  onClickLeft() {
-    wx.showToast({ title: '点击返回', icon: 'none' });
+  pageLifetimes: {
+    show() {
+      if (typeof this.getTabBar === 'function' &&
+        this.getTabBar()) {
+        this.getTabBar().setData({
+          selected: 0
+        })
+      }
+    }
   }
 })

@@ -1,1 +1,7 @@
-<!--miniprogram/pages/todo/todo.wxm
+<!--miniprogram/pages/todo/todo.wxm -->
+<van-nav-bar
+  title='任务清单'
+  left-text="返回"
+  left-arrow
+  bind:click-left="onClickLeft"
+/>

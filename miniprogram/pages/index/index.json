@@ -1,7 +1,0 @@
-{
-  "usingComponents": {
-    "page1": "../pages/todo/todo",
-    "page2": "../pages/newtask/newtask",
-    "page3": "../pages/me/me"
-  }
-}
