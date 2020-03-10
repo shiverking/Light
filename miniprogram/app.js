@@ -15,6 +15,15 @@ App({
       })
     }
 
-    this.globalData = {}
+    this.globalData = {
+      //openID
+      openid: '',
+      //用户信息
+      userInfo: {},
+      //登陆状态
+      logged:false,
+      avatarUrl: 'images/unknown.png',
+      userInfo: {}
+    }
   }
 })

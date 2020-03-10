@@ -1,10 +1,36 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/todo/todo",
     "pages/newtask/newtask",
     "pages/me/me"
   ],
+  "tabBar": {
+    "custom": true,
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/todo/todo",
+        "iconPath": "images/tab_bar01_h.png",
+        "selectedIconPath": "images/tab_bar01_h.png",
+        "text": "任务"
+      },
+      {
+        "pagePath": "pages/newtask/newtask",
+        "iconPath": "images/tab_bar04_n.png",
+        "selectedIconPath": "images/tab_bar04_h.png",
+        "text": "新建"
+      },
+      {
+        "pagePath": "pages/me/me",
+        "iconPath": "images/tab_bar05.png",
+        "selectedIconPath": "images/tab_bar05_n.png",
+        "text": "我的"
+      }
+    ]
+  },
   "usingComponents": {
     "van-tabbar": "@vant/weapp/tabbar/index",
     "van-tabbar-item": "@vant/weapp/tabbar-item/index",

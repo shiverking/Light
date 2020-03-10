@@ -1,16 +1,24 @@
 <!--me.wxml-->
 <view class="page">
+<van-nav-bar
+  title='我的'
+  left-text="返回"
+  left-arrow
+  bind:click-left="onClickLeft"
+/>
 <view class="user-card">
   <van-row>
    <van-col span="4">
-    <image class="user-card__head" src="../../images/icon-user.png"></image>
+    <image class="user-card__head" src="{{avatarUrl}}"></image>
    </van-col>
    <van-col span="20">
-    <van-cell title="用户名" is-link value="详细信息" size="small" label="描述信息" />
+    <van-cell title="{{userInfo.nickName}}" is-link value="详细信息" size="small" label="{{userInfo.city}}" bind:click="onGetOpenid"/>
    </van-col>
+   <!-- <van-button color="linear-gradient(to right, #4bb0ff, #6149f6)"size="small" open-type="getUserInfo" 
+      bindgetuserinfo="onGetUserInfo">点击授权</van-button> -->
   </van-row>
-  <!-- <text class="user-card__name">{{ userInfo.nickName }}</text> -->
-  <!-- <text class="user-card__name">名字示例</text> -->
+  <!-- <van-button color="linear-gradient(to right, #4bb0ff, #6149f6)"size="small"bindtap="onAdd">添加数据</van-button>
+  <van-button color="linear-gradient(to right, #4bb0ff, #6149f6)"size="small"bindtap="onQuery">查询数据</van-button> -->
   <van-cell title="我的打卡记录" icon="search" />
 </view>
 
