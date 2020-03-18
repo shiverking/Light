@@ -1,6 +1,7 @@
 // miniprogram/pages/todo/todo.js
 Component({
   data: {
+    val:"",
     show: false,
     currentDate:new Date().getTime(),
     currentTime: "",
