@@ -5,13 +5,6 @@
   left-arrow
   bind:click-left="onClickLeft"
 />
-
-
-<van-transition show="true" name="fade-up"/>
-  内容
-
-
-
 <view wx:for="{{todos}}" wx:for-index="todoindex" wx:for-item="itemName">
   <van-swipe-cell right-width="{{ 65 }}" left-width="{{ 65 }}" async-close bind:close="onClose" id="{{itemName.todoid}}">
     <van-button type="danger" slot="left">完成</van-button>
