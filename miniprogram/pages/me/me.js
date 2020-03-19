@@ -2,6 +2,7 @@ const app = getApp();
 const db = wx.cloud.database()
 Component({
   data: {
+    test:2,
     logged: false,
     avatarUrl: '/images/unkown.png',
     userInfo: {}
@@ -108,7 +109,6 @@ Component({
           selected: 2
         })
       }
-    
       //判断是否登录如果已经登陆就直接获取信息
       wx.getSetting({
         success: res => {

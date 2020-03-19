@@ -5,3 +5,31 @@
   left-arrow
   bind:click-left="onClickLeft"
 />
+
+
+<van-transition show="true" name="fade-up"/>
+  内容
+
+
+
+<view wx:for="{{todos}}" wx:for-index="todoindex" wx:for-item="itemName">
+  <van-swipe-cell right-width="{{ 65 }}" left-width="{{ 65 }}" async-close bind:close="onClose" id="{{itemName.todoid}}">
+    <van-button type="danger" slot="left">完成</van-button>
+      <van-cell-group>
+        <van-cell  title="{{itemName.name}}" value="{{itemName.time}}" />
+      </van-cell-group>
+      <van-button type="primary" slot="right" >详细</van-button>
+  </van-swipe-cell>
+</view>
+<van-divider contentPosition="left" customStyle="color: #1989fa;border-color: #1989fa;font-size: 18px;">已完成</van-divider>
+<block wx:if="{{flength > 0}}">
+<view wx:for="{{ftodos}}" wx:for-index="ftodoindex" wx:for-item="fitem">
+  <van-swipe-cell right-width="{{ 65 }}" left-width="{{ 65 }}" async-close bind:close="fclose" id="{{fitem.todoid}}">
+    <van-button type="danger" slot="left">还原</van-button>
+      <van-cell-group>
+        <van-cell  title="{{fitem.name}}" value="{{fitem.time}}" />
+      </van-cell-group>
+      <van-button type="primary" slot="right" >详细</van-button>
+  </van-swipe-cell>
+</view>
+</block>
