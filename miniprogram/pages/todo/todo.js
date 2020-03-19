@@ -50,7 +50,7 @@ Component({
           this.finish(event.target.id)
         }
         case 'right':{
-          //任务详细界面 event.target.id 是要操作的任务的id
+          this.deletetodo(event.target.id)
         }
           break;
       }
@@ -65,7 +65,7 @@ Component({
           this.unfinish(event.target.id)
         }
         case 'right': {
-          //删除任务 event.target.id 是要操作的任务的id
+          this.deletetodo(event.target.id)
         }
           break;
       }
@@ -92,6 +92,20 @@ Component({
       }).then(res => {
         this.init();
       })
+    },
+    deletetodo(tid){
+      wx.cloud.callFunction({
+        name:"deletetodobyid",
+        data:{
+          todoid:tid
+        }
+      }).then(res =>{
+        wx.showToast({
+          title: '删除成功',
+        })
+        this.init();
+      })
+
     },
     init(){
       var that = this
