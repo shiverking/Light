@@ -88,3 +88,9 @@
 .tips {
   padding: 30rpx;
 }
+.info-font{
+  position: relative;
+  font-size: 30rpx;
+  top: 15rpx;
+  font-weight: 500;
+}

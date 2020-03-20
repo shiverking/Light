@@ -5,7 +5,7 @@ Component({
     test:2,
     logged: false,
     avatarUrl: '/images/unkown.png',
-    userInfo: {}
+    userInfo: {},
   },
   onLoad: function () {
     // this.setData({
@@ -99,7 +99,12 @@ Component({
           console.error('[数据库] [新增记录] 失败：', err)
         }
       })
-    }, 
+    },
+    navigateToFAQ: function(){
+      wx.navigateTo({
+        url:'../me/FAQ/faq'
+      })
+    }
   },
   pageLifetimes: {
     show() {

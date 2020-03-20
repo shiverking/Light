@@ -2,7 +2,9 @@
   "pages": [
     "pages/todo/todo",
     "pages/newtask/newtask",
-    "pages/me/me"
+    "pages/me/me",
+    "pages/me/FAQ/faq",
+    "pages/me/Developer/developer"
   ],
   "tabBar": {
     "custom": true,
@@ -54,7 +56,9 @@
     "van-col": "@vant/weapp/col/index",
     "van-swipe-cell": "@vant/weapp/swipe-cell/index",
     "van-tag": "@vant/weapp/tag/index",
-    "van-transition": "@vant/weapp/transition/index"
+    "van-transition": "@vant/weapp/transition/index",
+    "van-collapse": "@vant/weapp/collapse/index",
+    "van-collapse-item": "@vant/weapp/collapse-item/index"
   },
   "window": {
     "backgroundTextStyle": "light",

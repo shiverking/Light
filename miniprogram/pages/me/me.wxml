@@ -1,5 +1,5 @@
-<!--me.wxml-->
-<view class="page">
+<!--我的信息主界面-->
+<view class="page" >
 <van-nav-bar
   title='我的'
   left-text="返回"
@@ -14,18 +14,29 @@
    <van-col span="20">
     <van-cell title="{{userInfo.nickName}}" is-link value="详细信息" size="small" label="{{userInfo.city}}" bind:click="onGetOpenid"/>
    </van-col>
-   <!-- <van-button color="linear-gradient(to right, #4bb0ff, #6149f6)"size="small" open-type="getUserInfo" 
-      bindgetuserinfo="onGetUserInfo">点击授权</van-button> -->
   </van-row>
-  <!-- <van-button color="linear-gradient(to right, #4bb0ff, #6149f6)"size="small"bindtap="onAdd">添加数据</van-button>
-  <van-button color="linear-gradient(to right, #4bb0ff, #6149f6)"size="small"bindtap="onQuery">查询数据</van-button> -->
   <van-cell title="我的打卡记录" icon="search" />
 </view>
 
 <van-grid column-num="3">
-  <van-grid-item icon="fire" text="目前的任务" />
-  <van-grid-item icon="checked" text="已完成" />
-  <van-grid-item icon="clock" text="已坚持天数" />
+  <van-grid-item use-slot text="目前的任务" >
+  <image 
+  style="width: 35%; height: 30px;"
+  src="/images/ongoing.png" />
+  <text class="info-font">进行中</text>
+  </van-grid-item>
+  <van-grid-item use-slot text="已完成" >
+  <image 
+  style="width: 35%; height: 30px;"
+  src="/images/completed.png" />
+  <text class="info-font">已完成</text>
+  </van-grid-item>
+  <van-grid-item use-slot text="已坚持天数" >
+  <image 
+  style="width: 35%; height: 30px;"
+  src="/images/insisted.png" />
+  <text class="info-font">已坚持天数</text>
+  </van-grid-item>
 </van-grid>
 <van-tabs type="line" color="rgb(65,105,225)" >
   <van-tab title="任务完成率">
@@ -43,11 +54,11 @@
   <van-tab title="任务统计">
    <view class="charts-card">
     <view class="charts-card__header">任务统计</view>
-    <canvas class="charts-card__body" canvas-id="chartsB" bindtouchstart="touchHandler" bindtouchmove="moveHandler" bindtouchend="touchEndHandler"></canvas>
+    <canvas class="charts-card__body" canvas-id="chartsA" bindtouchstart="touchHandler" bindtouchmove="moveHandler" bindtouchend="touchEndHandler"></canvas>
   </view>
   </van-tab>
 </van-tabs>
 <van-cell title="设置" is-link />
-<van-cell title="联系我们" is-link />
+<van-cell title="常见问题" is-link bindtap="navigateToFAQ"/>
 <van-cell title="开发者信息" is-link />
 </view>

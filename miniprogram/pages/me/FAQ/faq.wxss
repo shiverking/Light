@@ -1,0 +1,6 @@
+/* miniprogram/pages/me/FAQ/faq.wxss */
+.contact-us{
+  position: absolute;
+  margin-left: 35%;
+  bottom: 15%;
+}
