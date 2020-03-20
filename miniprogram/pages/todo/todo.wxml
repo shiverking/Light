@@ -9,13 +9,14 @@
   <van-swipe-cell right-width="{{ 65 }}" left-width="{{ 65 }}" async-close bind:close="onClose" id="{{itemName.todoid}}">
     <van-button type="primary" slot="left">完成</van-button>
       <van-cell-group>
-        <van-cell  title="{{itemName.name}}" value="{{itemName.time}}" />
+        <van-cell title="{{itemName.name}}" value="{{itemName.time}}" />
       </van-cell-group>
       <van-button type="danger" slot="right" >删除</van-button>
   </van-swipe-cell>
 </view>
-<van-divider contentPosition="left" customStyle="color: #1989fa;border-color: #1989fa;font-size: 18px;">已完成</van-divider>
+
 <block wx:if="{{flength > 0}}">
+<van-divider contentPosition="left" customStyle="color: #1989fa;border-color: #1989fa;font-size: 18px;">已完成</van-divider>
 <view wx:for="{{ftodos}}" wx:for-index="ftodoindex" wx:for-item="fitem">
   <van-swipe-cell right-width="{{ 65 }}" left-width="{{ 65 }}" async-close bind:close="fclose" id="{{fitem.todoid}}">
     <van-button type="primary" slot="left">还原</van-button>

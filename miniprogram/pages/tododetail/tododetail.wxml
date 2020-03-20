@@ -1,0 +1,11 @@
+<!--pages/tododetail/tododetail.wxml-->
+<van-nav-bar
+  title='任务清单'
+  left-text="返回"
+  left-arrow
+  bind:click-left="onClickLeft"
+/>
+<van-cell title="名称" is-link="true" value="{{name}}" />
+<van-cell title="时间" is-link="true" value="{{time}}" />
+<van-cell title="描述" is-link="true" value="{{describe}}" />
+<van-cell title="标签" is-link="true" value="{{tag}}" />

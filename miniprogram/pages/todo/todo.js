@@ -46,11 +46,19 @@ Component({
       } = event.detail;
       switch (position) {
         case 'left':{
-          console.log(event.target.id);
-          this.finish(event.target.id)
+          this.finish(event.target.id);
+          break
+        }
+        case 'cell':{
+          var i = event.target.id
+        wx.navigateTo({
+          url: '../tododetail/tododetail?todoid='+event.target.id,
+        })
+          break;
         }
         case 'right':{
-          this.deletetodo(event.target.id)
+          this.deletetodo(event.target.id);
+          break;
         }
           break;
       }
@@ -62,10 +70,16 @@ Component({
       } = event.detail;
       switch (position) {
         case 'left': {
-          this.unfinish(event.target.id)
+          this.unfinish(event.target.id);
+          break;
+        }
+        case 'cell':{
+          console.log("cell");
+          break;
         }
         case 'right': {
-          this.deletetodo(event.target.id)
+          this.deletetodo(event.target.id);
+          break;
         }
           break;
       }
