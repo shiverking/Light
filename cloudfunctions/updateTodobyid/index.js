@@ -6,13 +6,15 @@ const db = cloud.database()
 const _ = db.command
 exports.main = async (event, context) => {
   try {
-    var item = event.item;
-    return await db.collection(event.cname).where({
+    return await db.collection('todo').where({
       todoid: event.todoid
     })
       .update({
         data: {
-          [item]: event.value
+          name: event.lname,
+          time: event.ltime,
+          tag:event.ltag,
+          describe:event.ldescribe
         },
       })
   } catch (e) {
