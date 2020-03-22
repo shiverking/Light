@@ -6,6 +6,8 @@ Component({
     logged: false,
     avatarUrl: '/images/unkown.png',
     userInfo: {},
+    show:false,//弹出层是否展示,默认为false
+    developer_info:''//开发者信息
   },
   onLoad: function () {
     // this.setData({
@@ -15,6 +17,14 @@ Component({
     // })
   },
   methods:{
+    //展示弹出层
+    showPopup() {
+      this.setData({ show: true });
+    },
+    //关闭弹出层
+    onClosePopup() {
+      this.setData({ show: false });
+    },
    //对返回按钮的响应
    onClickLeft() {
     wx.showToast({ title: '点击返回', icon: 'none' });
@@ -104,6 +114,11 @@ Component({
       wx.navigateTo({
         url:'../me/FAQ/faq'
       })
+    },
+    navigateToVersion:function(){
+      wx.navigateTo({
+        url: '../me/Version/version'
+      })
     }
   },
   pageLifetimes: {
@@ -120,6 +135,7 @@ Component({
           if (res.authSetting['scope.userInfo']) {
             // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
             wx.getUserInfo({
+              lang:"zh_CN",
               success: res => {
                 this.setData({
                   avatarUrl: res.userInfo.avatarUrl,

@@ -6,9 +6,9 @@
   left-arrow
   bind:click-left="onClickLeft"
 />
-<van-cell title="自定义打卡项目" icon="add-o"></van-cell>
+<van-cell title="自定义打卡项目" icon="add-o" bindtap="navigateToDefined" clickable="true"></van-cell>
 <van-cell title="请选择一个推荐的打卡项目" icon="good-job-o" />
-<van-tabs animated>
+<van-tabs animated color="rgb(65,105,225)">
   <!-- 以下项目都只是作为测试用 -->
   <van-tab title="热门">
    <van-cell title="测试一" is-link />
@@ -31,9 +31,7 @@
    <van-cell title="测试三" is-link />
   </van-tab>
   <van-tab title="我的">
-   <van-cell title="测试一" is-link />
-   <van-cell title="测试二" is-link />
-   <van-cell title="测试三" is-link />
+   <van-cell wx:for="{{my_tags}}" title="{{item.tagname}}" is-link />
   </van-tab>
 </van-tabs>
 <van-dialog

@@ -1,0 +1,56 @@
+<!--miniprogram/pages/newtask/defined/defined.wxml-->
+<view class="page">
+  <van-nav-bar
+  title='自定义项目'
+  left-text="返回"
+  left-arrow
+  bind:click-left="onClickLeft"
+/>
+<text class="reminder">温馨提示：左滑删除，加号添加，点击修改</text>
+<van-dialog id="van-dialog" />
+<van-swipe-cell id="swipe-cell" right-width="{{ 60 }}" async-close bind:close="onClose" wx:for="{{tags}}" id="{{item._id}}">
+  <van-cell-group>
+    <van-cell title="{{item.tagname}}" clickable="true" id="{{item._id}}" bind:click="updateTag"/>
+  </van-cell-group>
+  <van-button type="danger" slot="right">删除
+  </van-button>
+</van-swipe-cell>
+<van-dialog
+  use-slot
+  title="修改项目信息"
+  show="{{ update_show }}"
+  show-cancel-button
+  bind:close="onCloseUpdateTag"
+  bind:confirm="onConfirmUpdateTag"
+>
+<van-field
+    value="{{update_value}}"
+    border="{{ false }}"
+    bind:change="onChange"
+/>
+</van-dialog>
+<van-image
+  round
+  width="3rem"
+  height="3rem"
+  src="/images/Add.png"
+  bindtap="addtag"
+  class="add-class"
+/>
+<van-dialog
+  use-slot
+  title="新建打卡任务"
+  show="{{ show }}"
+  show-cancel-button
+  bind:close="onCloseAddTag"
+  bind:confirm="onConfirmAddTag"
+>
+<van-field
+    value="{{value}}"
+    placeholder="请输入项目名称"
+    border="{{ false }}"
+    bind:change="onChange"
+/>
+</van-dialog>
+</view>
+

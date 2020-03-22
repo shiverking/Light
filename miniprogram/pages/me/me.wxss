@@ -94,3 +94,10 @@
   top: 15rpx;
   font-weight: 500;
 }
+.project-title{
+  font-weight: 550; 
+}
+.developer_info{
+  font-size: 30rpx;
+  color: grey;
+}

@@ -4,7 +4,7 @@
     "pages/newtask/newtask",
     "pages/me/me",
     "pages/me/FAQ/faq",
-    "pages/me/Developer/developer",
+    "pages/newtask/defined/defined",
     "pages/tododetail/tododetail"
   ],
   "tabBar": {

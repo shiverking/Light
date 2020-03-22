@@ -12,28 +12,28 @@
     <image class="user-card__head" src="{{avatarUrl}}"></image>
    </van-col>
    <van-col span="20">
-    <van-cell title="{{userInfo.nickName}}" is-link value="详细信息" size="small" label="{{userInfo.city}}" bind:click="onGetOpenid"/>
+    <van-cell title="{{userInfo.nickName}}" is-link value="详细信息" size="small" label="{{userInfo.province}} {{userInfo.city}}" bind:click="onGetOpenid"/>
    </van-col>
   </van-row>
   <van-cell title="我的打卡记录" icon="search" />
 </view>
-
+<!-- <van-button open-type='getUserInfo' lang="zh_CN" bindgetuserinfo="onGetUserInfo"></van-button> -->
 <van-grid column-num="3">
   <van-grid-item use-slot text="目前的任务" >
   <image 
-  style="width: 35%; height: 30px;"
+  style="width: 33%; height: 30px;"
   src="/images/ongoing.png" />
   <text class="info-font">进行中</text>
   </van-grid-item>
   <van-grid-item use-slot text="已完成" >
   <image 
-  style="width: 35%; height: 30px;"
+  style="width: 33%; height: 30px;"
   src="/images/completed.png" />
   <text class="info-font">已完成</text>
   </van-grid-item>
   <van-grid-item use-slot text="已坚持天数" >
   <image 
-  style="width: 35%; height: 30px;"
+  style="width: 33%; height: 30px;"
   src="/images/insisted.png" />
   <text class="info-font">已坚持天数</text>
   </van-grid-item>
@@ -60,5 +60,21 @@
 </van-tabs>
 <van-cell title="设置" is-link />
 <van-cell title="常见问题" is-link bindtap="navigateToFAQ"/>
-<van-cell title="开发者信息" is-link />
+<van-cell title="版本信息" is-link  bind:click="showPopup" />
+<van-popup show="{{ show }}" bind:close="onClosePopup" position="bottom"
+  custom-style="height: 30%;" round>
+<van-row>
+  <van-col span="4">
+  <van-image
+  round
+  width="4rem"
+  height="4rem"
+  src="/images/logo.png"
+  />
+ </van-col>
+  <van-col span="12"><van-cell title="关于灯火Light" title-class="project-title" size="large" label-class="project-desc" border="{{false}}"/>
+  <text class="developer_info" decode="{{true}}">&emsp;当前版本: v1.0.0 \n  &emsp;最新版本: v1.0.0 \n  &emsp;开发者：张开野 闫崇傲</text>
+  </van-col>
+</van-row>
+</van-popup>
 </view>

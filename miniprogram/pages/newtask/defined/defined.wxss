@@ -1,0 +1,11 @@
+/* miniprogram/pages/newtask/defined/defined.wxss */
+.add-class{
+  position: absolute;
+  margin-left: 43%;
+  bottom: 15%;
+}
+.reminder{
+  font-size: 30rpx; 
+  font-weight: 350;
+  color: gray;
+}
