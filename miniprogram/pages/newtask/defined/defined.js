@@ -37,7 +37,7 @@ Page({
           instance.close();
           db.collection('tag').doc(event.target.id).remove({//删除该tag
             success: res => {
-              console.log('[数据库] [删除记录] 成功：',res)
+              //console.log('[数据库] [删除记录] 成功：',res)
               this.onShow();//即时刷新界面
             },
             fail: err => {

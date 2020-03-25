@@ -5,7 +5,8 @@
     "pages/me/me",
     "pages/me/FAQ/faq",
     "pages/newtask/defined/defined",
-    "pages/tododetail/tododetail"
+    "pages/tododetail/tododetail",
+    "pages/newtask/createtodo/createtodo"
   ],
   "tabBar": {
     "custom": true,
@@ -61,7 +62,9 @@
     "van-collapse": "@vant/weapp/collapse/index",
     "van-collapse-item": "@vant/weapp/collapse-item/index",
     "van-popup": "@vant/weapp/popup/index",
-    "van-field": "@vant/weapp/field/index"
+    "van-field": "@vant/weapp/field/index",
+    "van-toast": "@vant/weapp/toast/index",
+    "van-switch": "@vant/weapp/switch/index"
   },
   "window": {
     "backgroundTextStyle": "light",

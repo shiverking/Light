@@ -47,6 +47,11 @@ Component({
     onChange(event) {
       this.setData({ active: event.detail });
     },
+    createNew(event){
+      wx.navigateTo({
+        url: 'createtodo/createtodo?tag=' + event.target.id,
+      })
+    }
   },
   pageLifetimes: {
     show() {

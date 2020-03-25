@@ -103,7 +103,7 @@ Component({
 
     },
     init(){
-      var that = this
+      var that = this;
       wx.cloud.callFunction({
         name: 'getTodoids',
       }).then(res => {
@@ -122,8 +122,9 @@ Component({
           ftodos: ftem,
           flength: ftem.length
         })
+        console.log(res)
       }).catch(err => {
-        
+        console.log(err)
       })
     }
 

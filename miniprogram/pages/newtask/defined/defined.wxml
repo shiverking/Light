@@ -6,6 +6,14 @@
   left-arrow
   bind:click-left="onClickLeft"
 />
+<van-image
+  round
+  width="3rem"
+  height="3rem"
+  src="/images/Add.png"
+  bindtap="addtag"
+  class="add-class"
+/>
 <text class="reminder">温馨提示：左滑删除，加号添加，点击修改</text>
 <van-dialog id="van-dialog" />
 <van-swipe-cell id="swipe-cell" right-width="{{ 60 }}" async-close bind:close="onClose" wx:for="{{tags}}" id="{{item._id}}">
@@ -29,14 +37,6 @@
     bind:change="onChange"
 />
 </van-dialog>
-<van-image
-  round
-  width="3rem"
-  height="3rem"
-  src="/images/Add.png"
-  bindtap="addtag"
-  class="add-class"
-/>
 <van-dialog
   use-slot
   title="新建打卡任务"
