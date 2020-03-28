@@ -6,30 +6,27 @@ cloud.init()
 // 云函数入口函数
 exports.main = async (event, context) => {
   try{
-    const wxContext = cloud.getWXContext();
+    var openid = event.todo._openid
+    var time = event.todo.time
+    var name = event.todo.name
+    var describe = event.todo.description
     const result = await cloud.openapi.subscribeMessage.send(
       {
-        touser: wxContext.OPENID,
+        touser: openid,
         page:'pages/index/index',
         lang:'zh_CN',
         data:{
           "time5":{
-            value:"2020-3-8"
+            value:time
           },
-          "phrase6":{
-            value:"TEST"
-          },
-          "number3":{
-            value:1
+          "thing2":{
+            value:describe
           },
           "thing1":{
-            value:"EEEEEEE"
+            value:name
           },
-          temlatedId:"hMHeOZbcHw-poWJeiP6wKo3TThBHokp17a0MxvzqV-o"
         },
-        success:res=>{
-          console.log("cloudchenggong")
-        }
+        templateId: "NN4Ya1CMug3KGNYJa5CXFaSAeX4CD8UFtEJcj44ee8c",
       }
     )
   }catch(err){

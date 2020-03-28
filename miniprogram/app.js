@@ -23,7 +23,11 @@ App({
       //登陆状态
       logged:false,
       avatarUrl: 'images/unknown.png',
-      userInfo: {}
+      userInfo: {},
+      gtem:{},//正在进行中的任务
+      gftem:{},//以及完成的任务
+      guftem:{},//时间已过，但没有完成的任务
+      gtags:{},//tag列表
     }
   }
 })

@@ -9,6 +9,9 @@ Component({
       time: ""
     },
     ftodos: [],
+    uftodos:[],
+    uflength:"",
+    length:"",
     flength: "",
     id: [],
     show: false,
@@ -109,20 +112,33 @@ Component({
       }).then(res => {
         var tem = new Array();
         var ftem = new Array();
+        var uftem = new Array();
         for (var i = 0; i < res.result.data.length; i++) {
           that.data.todo = res.result.data[i];
           if (res.result.data[i].isfinished === true) {
-            tem.push(that.data.todo)
+            var t = res.result.data[i].time;
+            var dateConvert1 = new Date(Date.parse(t));
+            var currentData = new Date();
+            if(currentData < dateConvert1){
+              tem.push(that.data.todo)
+            }else{
+              uftem.push(that.data.todo)
+            }
           } else {
             ftem.push(that.data.todo);
           }
         }
+        app.globalData.gtem = tem;
+        app.globalData.gftem = ftem;
+        app.globalData.guftem = uftem;
         that.setData({
           todos: tem,
+          length:tem.length,
+          uftodos:uftem,
+          uflength:uftem.length,
           ftodos: ftem,
           flength: ftem.length
         })
-        console.log(res)
       }).catch(err => {
         console.log(err)
       })
@@ -139,6 +155,12 @@ Component({
         })
       };
       that.init()
+      wx.cloud.callFunction({
+        name:"remind"
+      }).then( res =>
+      {
+        console.log(res)
+      })
     }
       
   }

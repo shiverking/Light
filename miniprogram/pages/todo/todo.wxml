@@ -22,3 +22,15 @@
     </van-swipe-cell>
   </view>
 </block>
+<block wx:if="{{uflength > 0}}">
+  <van-divider contentPosition="left" customStyle="color: #1989fa;border-color: #1989fa;font-size: 18px;">已过期</van-divider>
+  <view wx:for="{{uftodos}}" wx:for-index="uftodoindex" wx:for-item="ufitem">
+    <van-swipe-cell right-width="{{ 60 }}" left-width="{{ 60 }}" async-close bind:close="onClose" id="{{ufitem.todoid}}">
+    <van-button type="primary" slot="left">完成</van-button>
+      <van-cell-group>
+        <van-cell title="{{ufitem.name}}" value="{{ufitem.time}}" />
+      </van-cell-group>
+      <van-button type="danger" slot="right">删除</van-button>
+    </van-swipe-cell>
+  </view>
+</block>

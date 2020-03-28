@@ -4,6 +4,7 @@ Page({
   data: {
     _openid: "",
     describe: "",
+    timestamp:"",
     isfinished: false,
     name: "",
     tag: "",
@@ -72,7 +73,8 @@ Page({
   },
   chooseTime: function () {
     this.setData({
-      show: true
+      show: true,
+      currentDate:new Date().getTime()
     })
   },
   cancel:function(){
@@ -99,7 +101,8 @@ Page({
     var now = this.formatDate(time)
     this.setData({
       time: now,
-      show: false
+      show: false,
+      timestamp:event.detail
     })
   },
   onClose: function (event) {
@@ -124,6 +127,11 @@ Page({
       console.log(app.globalData.openid);
       var a  = app.globalData.openid;
       a=a.toString
+      if(this.data.checked === true){
+        wx.requestSubscribeMessage({
+          tmplIds: ['hMHeOZbcHw-poWJeiP6wKo3TThBHokp17a0MxvzqV-o'],
+        })
+      }
       db.collection('todo').add({
         // data 字段表示需新增的 JSON 数据
         data: {
@@ -134,7 +142,8 @@ Page({
           remind:this.data.checked,
           todoid:i,
           _openid: a,
-          name:this.data.name
+          name:this.data.name,
+          timestamp:this.data.timestamp
         }
       })
         .then(res => {
