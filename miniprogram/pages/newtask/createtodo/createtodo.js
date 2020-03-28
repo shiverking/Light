@@ -129,7 +129,7 @@ Page({
       a=a.toString
       if(this.data.checked === true){
         wx.requestSubscribeMessage({
-          tmplIds: ['hMHeOZbcHw-poWJeiP6wKo3TThBHokp17a0MxvzqV-o'],
+          tmplIds: ['NN4Ya1CMug3KGNYJa5CXFQtVYF_agQqVp7pMTvKFLQQ'],
         })
       }
       db.collection('todo').add({

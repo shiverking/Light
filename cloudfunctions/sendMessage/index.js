@@ -19,14 +19,11 @@ exports.main = async (event, context) => {
           "time5":{
             value:time
           },
-          "thing2":{
-            value:describe
-          },
           "thing1":{
             value:name
           },
         },
-        templateId: "NN4Ya1CMug3KGNYJa5CXFaSAeX4CD8UFtEJcj44ee8c",
+        templateId: "NN4Ya1CMug3KGNYJa5CXFQtVYF_agQqVp7pMTvKFLQQ",
       }
     )
   }catch(err){
