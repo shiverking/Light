@@ -81,7 +81,7 @@
 .charts-card__body {
   display: block;
   width: 100%;
-  height: 370rpx;
+  height: 350rpx;
   padding: 20rpx;
 }
 
@@ -100,4 +100,7 @@
 .developer_info{
   font-size: 30rpx;
   color: grey;
+}
+.circle-position{
+  padding-left:30%;
 }

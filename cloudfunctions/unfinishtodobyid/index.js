@@ -11,6 +11,7 @@ exports.main = async (event, context) => {
     })
       .update({
         data: {
+          finishedtime:"",
           isfinished: true
         },
       })

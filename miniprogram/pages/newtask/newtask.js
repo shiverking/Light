@@ -2,6 +2,7 @@
 const db = wx.cloud.database();
 Component({
   data: {
+    showimage:false,
     show: false,
     currentDate: new Date().getTime(),
     minDate: new Date().getTime(),
@@ -26,7 +27,10 @@ Component({
       })
     },
     onClickLeft() {
-      wx.showToast({ title: '点击返回', icon: 'none' });
+      wx.showToast({
+        title:'继续努力！',
+        image:'/images/need-efforts1.png',
+      })
     },
     showdialog: function () {
       this.setData({

@@ -143,7 +143,8 @@ Page({
           todoid:i,
           _openid: a,
           name:this.data.name,
-          timestamp:this.data.timestamp
+          timestamp:this.data.timestamp,
+          finishedtime:""
         }
       })
         .then(res => {

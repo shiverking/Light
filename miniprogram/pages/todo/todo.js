@@ -10,18 +10,30 @@ Component({
     },
     ftodos: [],
     uftodos:[],
+    tftodos:[],//日期选定后该日期完成的任务
     uflength:"",
     length:"",
+    tflength:"",
     flength: "",
     id: [],
     show: false,
+    today_finished_task: {  //今日完成任务情况
+      last_day:'',//上一个被记录的日期
+      current_day:'',//维护一个日期变量
+      today_finished_sum:'',//今日完成任务总数
+      if_add:false//是否坚持天数加一
+    },
+    calendar_day:"",//日历显示的日期，首次打开时今日
+    show_calender:false,//设置日历是否显示
+    minDate:new Date(2020,3,1).getTime(),//日历最小显示范围 
   },
   methods: {
-    onClickLeft() {
-      wx.showToast({
-        title: '点击返回',
-        icon: 'none'
-      });
+    //打开日历
+    openCalender(){
+      this.setData({ show_calender: true });
+    },
+    onCloseCalender(){
+      this.setData({ show_calender: false });
     },
     onClose(event) {
       const {
@@ -34,10 +46,6 @@ Component({
           break
         }
         case 'cell':{
-          var i = event.target.id
-        wx.navigateTo({
-          url: '../tododetail/tododetail?todoid='+event.target.id,
-        })
           break;
         }
         case 'right':{
@@ -58,7 +66,6 @@ Component({
           break;
         }
         case 'cell':{
-          console.log("cell");
           break;
         }
         case 'right': {
@@ -76,8 +83,14 @@ Component({
         }
       }).then(res =>{
         wx.showToast({
-          title: '任务以完成',
+          title: '任务已完成',
         });
+        app.globalData.sum_finished+=1; //完成总数加一
+        this.data.today_finished_task.today_finished_sum +=1;
+        if (this.data.today_finished_task.if_add == false){ //天数还未加一
+          app.globalData.sum_insisted += 1 ;
+          this.data.today_finished_task.if_add = true;
+        }
         this.init();
       })
     },
@@ -88,6 +101,18 @@ Component({
           todoid: tid,
         }
       }).then(res => {
+        if (app.globalData.sum_finished>0){
+          app.globalData.sum_finished -= 1;//完成总数减一
+        }
+        if (this.data.today_finished_task.today_finished_sum>0){
+          this.data.today_finished_task.today_finished_sum -= 1;
+        }
+        if (this.data.today_finished_task.today_finished_sum == 0) { //今日任务全部还原
+          this.data.today_finished_task.if_add = false;//修改为还未加一
+          if (app.globalData.sum_insisted>0){
+            app.globalData.sum_insisted -= 1;
+          } 
+        }
         this.init();
       })
     },
@@ -113,6 +138,7 @@ Component({
         var tem = new Array();
         var ftem = new Array();
         var uftem = new Array();
+        var todayftem = new Array();//总感觉有更好的方法，
         for (var i = 0; i < res.result.data.length; i++) {
           that.data.todo = res.result.data[i];
           if (res.result.data[i].isfinished === true) {
@@ -125,6 +151,9 @@ Component({
               uftem.push(that.data.todo)
             }
           } else {
+            if (that.data.todo.finishedtime === that.data.calendar_day){
+              todayftem.push(that.data.todo)
+            }
             ftem.push(that.data.todo);
           }
         }
@@ -137,17 +166,45 @@ Component({
           uftodos:uftem,
           uflength:uftem.length,
           ftodos: ftem,
-          flength: ftem.length
+          flength: ftem.length,
+          tftodos:todayftem,
+          tflength:todayftem.length,
         })
       }).catch(err => {
-        console.log(err)
+        
       })
+    },
+    todetail(event){      //点击任务单元格进行跳转
+      var i = event.target.id
+      wx.navigateTo({
+        url: '../tododetail/tododetail?todoid=' + event.target.id,
+      })
+    },
+    onConfirmCalender(event){
+     var td = event.detail
+     var da = td.getFullYear() + "-" + (td.getMonth() + 1) + "-" + td.getDate()
+     this.setData({
+       calendar_day:da,
+       show_calender:false
+     })
+      this.init();
     }
-
   },
   pageLifetimes: {
 
     show() {
+      var today = new Date();
+      this.setData({
+        current_day:today,
+        calendar_day: today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate(), //设置今日日期
+      })
+      console.log(today)
+      if (this.data.today_finished_task.current_day > this.data.last_day){
+        this.data.today_finished_task.last_day == this.data.current_day;//更新记录日期
+        this.data.today_finished_task.today_finished_sum = 0;//重设为0
+        this.this.data.today_finished_task.if_add=false;
+      }
+      else{}
       var that = this
       if (typeof this.getTabBar === 'function' && this.getTabBar()) {
         this.getTabBar().setData({
@@ -162,6 +219,5 @@ Component({
         console.log(res)
       })
     }
-      
   }
 })

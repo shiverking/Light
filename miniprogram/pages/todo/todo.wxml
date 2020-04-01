@@ -1,36 +1,42 @@
 <!--miniprogram/pages/todo/todo.wxm -->
-<van-nav-bar title='任务清单' left-text="返回" left-arrow bind:click-left="onClickLeft" />
-<view wx:for="{{todos}}" wx:for-index="todoindex" wx:for-item="itemName">
-  <van-swipe-cell right-width="{{ 60 }}" left-width="{{ 60 }}" async-close bind:close="onClose" id="{{itemName.todoid}}">
-    <van-button type="primary" slot="left">完成</van-button>
-    <van-cell-group>
-      <van-cell title="{{itemName.name}}" value="{{itemName.time}}" />
-    </van-cell-group>
-    <van-button type="danger" slot="right">删除</van-button>
-  </van-swipe-cell>
-</view>
+<view class="page">
+  <van-nav-bar title='任务清单' bind:click-left="openCalender">
+    <van-icon name="/images/calender.png" slot="left" size="25px" custom-style="padding-bottom:10px;" />
+  </van-nav-bar>
+  <van-calendar show="{{ show_calender }}" position="top" bind:close="onCloseCalender" bind:confirm="onConfirmCalender"  color="#87CEFA" min-date="{{minDate}}" />
+  <view wx:for="{{todos}}" wx:for-index="todoindex" wx:for-item="itemName">
+    <van-swipe-cell right-width="{{ 60 }}" left-width="{{ 60 }}" async-close bind:close="onClose" id="{{itemName.todoid}}">
+      <van-button type="primary" slot="left">完成</van-button>
+      <van-cell-group>
+        <van-cell id="{{itemName.todoid}}" title="{{itemName.name}}" value="{{itemName.time}}" bind:click="todetail" />
+      </van-cell-group>
+      <van-button type="danger" slot="right">删除</van-button>
+    </van-swipe-cell>
+  </view>
 
-<block wx:if="{{flength > 0}}">
-  <van-divider contentPosition="left" customStyle="color: #1989fa;border-color: #1989fa;font-size: 18px;">已完成</van-divider>
-  <view wx:for="{{ftodos}}" wx:for-index="ftodoindex" wx:for-item="fitem">
-    <van-swipe-cell right-width="{{ 60 }}" left-width="{{ 60 }}" async-close bind:close="fclose" id="{{fitem.todoid}}">
-      <van-button type="primary" slot="left">还原</van-button>
-      <van-cell-group>
-        <van-cell title="{{fitem.name}}" value="{{fitem.time}}" />
-      </van-cell-group>
-      <van-button type="danger" slot="right">删除</van-button>
-    </van-swipe-cell>
-  </view>
-</block>
-<block wx:if="{{uflength > 0}}">
-  <van-divider contentPosition="left" customStyle="color: #1989fa;border-color: #1989fa;font-size: 18px;">已过期</van-divider>
-  <view wx:for="{{uftodos}}" wx:for-index="uftodoindex" wx:for-item="ufitem">
-    <van-swipe-cell right-width="{{ 60 }}" left-width="{{ 60 }}" async-close bind:close="onClose" id="{{ufitem.todoid}}">
-    <van-button type="primary" slot="left">完成</van-button>
-      <van-cell-group>
-        <van-cell title="{{ufitem.name}}" value="{{ufitem.time}}" />
-      </van-cell-group>
-      <van-button type="danger" slot="right">删除</van-button>
-    </van-swipe-cell>
-  </view>
-</block>
+  <block wx:if="{{tflength > 0}}">
+    <van-divider contentPosition="left" customStyle="color: #1989fa;border-color: #1989fa;font-size: 18px;">已完成</van-divider>
+    <view wx:for="{{tftodos}}" wx:for-index="tftodoindex" wx:for-item="tfitem">
+      <van-swipe-cell right-width="{{ 60 }}" left-width="{{ 60 }}" async-close bind:close="fclose" id="{{tfitem.todoid}}">
+        <van-button type="primary" slot="left">还原</van-button>
+        <van-cell-group>
+          <van-cell title="{{tfitem.name}}" value="{{tfitem.finishedtime}}" />
+        </van-cell-group>
+        <van-button type="danger" slot="right">删除</van-button>
+      </van-swipe-cell>
+    </view>
+
+  </block>
+  <block wx:if="{{uflength > 0}}">
+    <van-divider contentPosition="left" customStyle="color: #1989fa;border-color: #1989fa;font-size: 18px;">已过期</van-divider>
+    <view wx:for="{{uftodos}}" wx:for-index="uftodoindex" wx:for-item="ufitem">
+      <van-swipe-cell right-width="{{ 60 }}" left-width="{{ 60 }}" async-close bind:close="onClose" id="{{ufitem.todoid}}">
+        <van-button type="primary" slot="left">完成</van-button>
+        <van-cell-group>
+          <van-cell title="{{ufitem.name}}" value="{{ufitem.time}}" />
+        </van-cell-group>
+        <van-button type="danger" slot="right">删除</van-button>
+      </van-swipe-cell>
+    </view>
+  </block>
+</view>

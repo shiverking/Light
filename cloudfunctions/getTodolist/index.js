@@ -7,6 +7,18 @@ cloud.init()
 const db = cloud.database()
 exports.main = async (event, context) => {
   return await db.collection('userlist').where({
+<<<<<<< HEAD
     todoid: event.todoid 
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+    todoid: event.todoid // 填入当前用户 openid
+=======
+    todoid: event.todoid 
+>>>>>>> master
+=======
+    todoid: event.todoid 
+>>>>>>> master
+>>>>>>> master
   }).get()
 }

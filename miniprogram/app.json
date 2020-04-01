@@ -6,7 +6,8 @@
     "pages/me/FAQ/faq",
     "pages/newtask/defined/defined",
     "pages/tododetail/tododetail",
-    "pages/newtask/createtodo/createtodo"
+    "pages/newtask/createtodo/createtodo",
+    "pages/me/timeline/timeline"
   ],
   "tabBar": {
     "custom": true,
@@ -64,7 +65,9 @@
     "van-popup": "@vant/weapp/popup/index",
     "van-field": "@vant/weapp/field/index",
     "van-toast": "@vant/weapp/toast/index",
-    "van-switch": "@vant/weapp/switch/index"
+    "van-switch": "@vant/weapp/switch/index",
+    "van-circle": "@vant/weapp/circle/index",
+    "van-calendar": "@vant/weapp/calendar/index"
   },
   "window": {
     "backgroundTextStyle": "light",

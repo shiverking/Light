@@ -1,6 +1,8 @@
 <!--miniprogram/pages/newtask/newtask.wxml-->
 <view class="page">
-  <van-nav-bar title='新建任务' left-text="返回" left-arrow bind:click-left="onClickLeft" />
+  <van-nav-bar title='开始新的任务吧' bind:click-left="onClickLeft" >
+    <van-icon name="/images/need-efforts0.png" slot="left" size="25px" custom-style="padding-bottom:10px;"/>
+  </van-nav-bar>
   <van-cell title="自定义打卡项目" icon="add-o" bindtap="navigateToDefined" clickable="true"></van-cell>
   <van-cell title="请选择一个推荐的打卡项目" icon="good-job-o" />
   <van-tabs animated color="rgb(65,105,225)">

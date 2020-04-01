@@ -1,5 +1,5 @@
 const app = getApp();
-const db = wx.cloud.database()
+const db = wx.cloud.database();
 Component({
   data: {
     test:2,
@@ -7,14 +7,31 @@ Component({
     avatarUrl: '/images/unkown.png',
     userInfo: {},
     show:false,//弹出层是否展示,默认为false
-    developer_info:''//开发者信息
-  },
-  onLoad: function () {
-    // this.setData({
-    //   logged: app.globalData.logged,
-    //   avatarUrl: app.globalData.avatarUrl,
-    //   userInfo: app.globalData.userInfo
-    // })
+    ongoing_number:'',//进行中任务数量
+    finished:'',//完成任务总的数量
+    insisted:'',//坚持的总天数
+    gradientColor: {//渐变色
+      '0%': '#4facfe',
+      '100%': '#00f2fe'
+    },
+    linedata: [
+      {
+        value: 23,    //数字
+        txt: '02-08'  //比如是日期
+      },
+      {
+        value: 24,    //数字
+        txt: '02-09'  //比如是日期
+      },
+      {
+        value: 25,    //数字
+        txt: '02-10'  //比如是日期
+      },
+      {
+        value: 26,    //数字
+        txt: '02-11'  //比如是日期
+      }
+    ]
   },
   methods:{
     //展示弹出层
@@ -119,10 +136,30 @@ Component({
       wx.navigateTo({
         url: '../me/Version/version'
       })
-    }
+    },
+    navigateToTimeline: function () {
+      wx.navigateTo({
+        url: '../me/timeline/timeline'
+      })
+    },
   },
   pageLifetimes: {
     show() {
+      let Line = require('utils/line.js');
+      let line = new Line();
+      line.draw({
+        renderTo: 'lineCanvas',
+        series: this.data.linedata, //data 数据结构见下文
+        pagePadding: 12, //页面左右padding的像素值
+        setCanvasSize: o => this.setData({ lineCtxHeight: o.height }), 
+        onTouch: e => this.setData({ oneDayData: e.serie }) 
+      })
+
+      this.setData({
+        ongoing_number: app.globalData.gtem.length,
+        finished: app.globalData.sum_finished,
+        insisted:app.globalData.sum_insisted,
+      })
       if (typeof this.getTabBar === 'function' &&
         this.getTabBar()) {
         this.getTabBar().setData({

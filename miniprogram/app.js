@@ -28,6 +28,8 @@ App({
       gftem:{},//以及完成的任务
       guftem:{},//时间已过，但没有完成的任务
       gtags:{},//tag列表
+      sum_insisted:0,//总的坚持天数
+      sum_finished:0,//总的任务完成数量
     }
   }
 })

@@ -9,7 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@vant/weapp": "^1.0.7",
-    "vtuweapp": "^1.2.7"
+    "@vant/weapp": "^1.1.0"
   }
 }

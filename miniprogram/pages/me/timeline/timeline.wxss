@@ -1,0 +1,39 @@
+/* miniprogram/pages/me/timeline/timeline.wxss */
+.weui-cell-third{
+  background: #fff;
+  position: absolute;
+  width: 100%;
+  min-height: 100%;
+  box-sizing: border-box;
+  padding-bottom: 100rpx;
+  overflow: hidden;
+  z-index: -1;
+}
+.weui-cell-list{
+  background: #fff;
+  margin: 5px 50px 5px 50px;
+}
+.weui-cell-line{
+/* width: 100px; */
+margin-left: 5px;
+  border-left: 1px solid #ddd;
+  height: 100px; 
+  background: #fff
+}
+.weui-cell-circle{
+  border: 1px solid #000;
+  border-radius: 5px;
+  width: 10px;
+  height: 10px;
+  border-color: blue;
+}
+.weui-cell-time{
+  /* width: 50px; */
+  float: left;
+  font-size:12px;
+  font-weight: 300;
+  padding-left: 15px;
+  width: 72px;
+  padding-top:0px;
+}
+

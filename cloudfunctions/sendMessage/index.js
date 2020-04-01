@@ -18,12 +18,29 @@ exports.main = async (event, context) => {
         data:{
           "time5":{
             value:time
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+          },
+          "thing2":{
+            value:describe
+=======
+>>>>>>> master
+>>>>>>> master
           },
           "thing1":{
             value:name
           },
         },
+<<<<<<< HEAD
         templateId: "NN4Ya1CMug3KGNYJa5CXFQtVYF_agQqVp7pMTvKFLQQ",
+=======
+<<<<<<< HEAD
+        templateId: "NN4Ya1CMug3KGNYJa5CXFaSAeX4CD8UFtEJcj44ee8c",
+=======
+        templateId: "NN4Ya1CMug3KGNYJa5CXFQtVYF_agQqVp7pMTvKFLQQ",
+>>>>>>> master
+>>>>>>> master
       }
     )
   }catch(err){

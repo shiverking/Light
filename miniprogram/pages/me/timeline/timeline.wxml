@@ -1,0 +1,22 @@
+<!--miniprogram/pages/me/timeline/timeline.wxml-->
+<view class="weui-cell-third">
+<van-nav-bar
+  title='时间轴'
+  left-text="返回"
+  left-arrow
+  bind:click-left="onClickLeft"
+/>
+  <view class="page__title">
+  <block wx:for="{{dealed_finished_info}}" wx:key="*this">
+    <view class='weui-cell-list'>
+      <image 
+      style="width: 40rpx; height: 40rpx;"
+      src="/images/timeline-circle.png" />
+      <view class='weui-cell-line'>
+        <view class='weui-cell-time'>{{item.finished_time}}</view>
+        <view><text class='weui-cell-event' decode="{{true}}">\n&emsp;{{item.task_name}}</text></view>
+      </view>
+    </view>
+  </block>
+</view>
+</view>
