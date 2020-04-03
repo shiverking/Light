@@ -11,10 +11,12 @@ Component({
     ftodos: [],
     uftodos:[],
     tftodos:[],//日期选定后该日期完成的任务
+    tuftodos:[],//选定日期已过期任务集合
     uflength:"",
     length:"",
     tflength:"",
     flength: "",
+    tuflength: "",//选定日期已过期任务数量
     id: [],
     show: false,
     today_finished_task: {  //今日完成任务情况
@@ -138,7 +140,7 @@ Component({
         var tem = new Array();
         var ftem = new Array();
         var uftem = new Array();
-        var todayftem = new Array();//总感觉有更好的方法，
+        var todayftem = new Array();//我是傻逼
         for (var i = 0; i < res.result.data.length; i++) {
           that.data.todo = res.result.data[i];
           if (res.result.data[i].isfinished === true) {

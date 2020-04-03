@@ -12,6 +12,7 @@ Page({
     todoid: "",
     show: false,
     checked:true,
+    fathertag:"",
     currentDate: new Date().getTime(),
     minminute: new Date().getTime(),
     formatter(type, value) {
@@ -34,6 +35,7 @@ Page({
   onLoad: function(options) {
     var that = this;
     that.setData({
+      fathertag:options.fathertag,
       tag: options.tag
     })
   },
@@ -129,7 +131,7 @@ Page({
       a=a.toString
       if(this.data.checked === true){
         wx.requestSubscribeMessage({
-          tmplIds: ['NN4Ya1CMug3KGNYJa5CXFQtVYF_agQqVp7pMTvKFLQQ'],
+          tmplIds: ['WPDnyqjOmGl2BNilxTtUW1RBXwYPaAtOISjpixlxA9s'],
         })
       }
       db.collection('todo').add({
@@ -138,6 +140,7 @@ Page({
           description: this.data.describe,
           time: this.data.time,
           tag: this.data.tag,
+          fathertag:this.data.fathertag,
           isfinished:true,
           remind:this.data.checked,
           todoid:i,

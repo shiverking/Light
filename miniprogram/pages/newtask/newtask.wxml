@@ -7,28 +7,23 @@
   <van-cell title="请选择一个推荐的打卡项目" icon="good-job-o" />
   <van-tabs animated color="rgb(65,105,225)">
     <van-tab title="我的">
-      <van-cell wx:for="{{my_tags}}" id="{{item.tagname}}" title="{{item.tagname}}" bind:click="createNew" is-link />
+      <van-cell wx:for="{{my_tags}}" id="{{item.tagname}}&fathertag=我的" title="{{item.tagname}}" bind:click="createNew" is-link />
     </van-tab>
-    <!-- 以下项目都只是作为测试用 -->
-    <van-tab title="热门">
-      <van-cell title="测试一" is-link />
-      <van-cell title="测试二" is-link />
-      <van-cell title="测试三" is-link />
-    </van-tab>
+    <!-- 以下项目都只是作为测试用   修改title记得把id也一起修改-->
     <van-tab title="健康">
-      <van-cell title="测试一" is-link />
-      <van-cell title="测试二" is-link />
-      <van-cell title="测试三" is-link />
+      <van-cell id="测试一&fathertag=健康" title="测试一" is-link bind:click="createNew" />
+      <van-cell id="测试二&fathertag=健康" title="测试二" is-link bind:click="createNew" />
+      <van-cell id="测试三&fathertag=健康" title="测试三" is-link bind:click="createNew" />
     </van-tab>
     <van-tab title="运动">
-      <van-cell title="测试一" is-link />
-      <van-cell title="测试二" is-link />
-      <van-cell title="测试三" is-link />
+      <van-cell id="测试一&fathertag=运动" title="测试一" is-link bind:click="createNew" />
+      <van-cell id="测试二&fathertag=运动" title="测试二" is-link bind:click="createNew"/>
+      <van-cell id="测试三&fathertag=运动" title="测试三" is-link bind:click="createNew"/>
     </van-tab>
     <van-tab title="学习">
-      <van-cell title="测试一" is-link />
-      <van-cell title="测试二" is-link />
-      <van-cell title="测试三" is-link />
+      <van-cell id="测试一&fathertag=学习" title="测试一" is-link bind:click="createNew"/>
+      <van-cell id="测试二&fathertag=学习" title="测试二" is-link bind:click="createNew"/>
+      <van-cell id="测试三&fathertag=学习" title="测试三" is-link bind:click="createNew"/>
     </van-tab>
   </van-tabs>
   <van-dialog use-slot title="新建" show="{{ createshow }}" show-cancel-button confirm-button-open-type="getUserInfo" bind:close="onClose" bind:getuserinfo="getUserInfo">

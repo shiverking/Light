@@ -10,37 +10,25 @@ exports.main = async (event, context) => {
     var time = event.todo.time
     var name = event.todo.name
     var describe = event.todo.description
+    var tag = event.todo.tag
     const result = await cloud.openapi.subscribeMessage.send(
       {
         touser: openid,
         page:'pages/index/index',
         lang:'zh_CN',
         data:{
-          "time5":{
+          "date2":{
             value:time
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
           },
-          "thing2":{
-            value:describe
-=======
->>>>>>> master
->>>>>>> master
-          },
-          "thing1":{
+          "thing3":{
             value:name
           },
+          "thing1":{
+            value:tag
+          },
         },
-<<<<<<< HEAD
-        templateId: "NN4Ya1CMug3KGNYJa5CXFQtVYF_agQqVp7pMTvKFLQQ",
-=======
-<<<<<<< HEAD
-        templateId: "NN4Ya1CMug3KGNYJa5CXFaSAeX4CD8UFtEJcj44ee8c",
-=======
-        templateId: "NN4Ya1CMug3KGNYJa5CXFQtVYF_agQqVp7pMTvKFLQQ",
->>>>>>> master
->>>>>>> master
+        templateId: "WPDnyqjOmGl2BNilxTtUW1RBXwYPaAtOISjpixlxA9s",
+
       }
     )
   }catch(err){
