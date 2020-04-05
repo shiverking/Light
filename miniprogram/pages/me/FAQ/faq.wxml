@@ -9,23 +9,15 @@
 <van-collapse value="{{ activeNames }}" bind:change="onChange" accordion>
   <van-collapse-item name="1">
     <view slot="title">如何快速新建任务</view>
-    奥利给，干就完了
+    在“新建”页面，选择一个你喜欢的标签，点击即可新建一个任务
   </van-collapse-item>
   <van-collapse-item name="2">
     <view slot="title">如何开启和关闭提醒</view>
-    奥利给，干就完了
+    在任务新建的页面，选择是否开启该任务的提醒
   </van-collapse-item>
   <van-collapse-item name="3">
     <view slot="title">任务快要到期了没有完成怎么办</view>
-    奥利给，干就完了
-  </van-collapse-item>
-  <van-collapse-item name="4">
-    <view slot="title">如何分享到朋友圈</view>
-    奥利给，干就完了
-  </van-collapse-item>
-  <van-collapse-item name="5">
-    <view slot="title">如何修改个人信息</view>
-    奥利给，干就完了
+    如果选择开启提醒，会在任务到期前1分钟提醒完成任务
   </van-collapse-item>
 </van-collapse>
 <van-button round type="info" color="linear-gradient(to right, #4bb0ff, #6149f6)" size="normal" class="contact-us" open-type="contact">联系客服</van-button>

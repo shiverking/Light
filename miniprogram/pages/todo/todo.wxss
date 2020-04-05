@@ -1,1 +1,8 @@
 /* miniprogram/pages/todo/todo.wxss */
+.tips-class{
+  width : 100rpx;
+  height:  100rpx;
+  padding-left:44%;
+  padding-top: 200rpx;
+  padding-bottom: 50rpx; 
+}

@@ -11,19 +11,19 @@
     </van-tab>
     <!-- 以下项目都只是作为测试用   修改title记得把id也一起修改-->
     <van-tab title="健康">
-      <van-cell id="测试一&fathertag=健康" title="测试一" is-link bind:click="createNew" />
-      <van-cell id="测试二&fathertag=健康" title="测试二" is-link bind:click="createNew" />
-      <van-cell id="测试三&fathertag=健康" title="测试三" is-link bind:click="createNew" />
+      <van-cell id="看病&fathertag=健康" title="看病" is-link bind:click="createNew" />
+      <van-cell id="吃药&fathertag=健康" title="吃药" is-link bind:click="createNew" />
+      <van-cell id="养生&fathertag=健康" title="养生" is-link bind:click="createNew" />
     </van-tab>
     <van-tab title="运动">
-      <van-cell id="测试一&fathertag=运动" title="测试一" is-link bind:click="createNew" />
-      <van-cell id="测试二&fathertag=运动" title="测试二" is-link bind:click="createNew"/>
-      <van-cell id="测试三&fathertag=运动" title="测试三" is-link bind:click="createNew"/>
+      <van-cell id="长跑&fathertag=运动" title="长跑" is-link bind:click="createNew" />
+      <van-cell id="瑜伽&fathertag=运动" title="瑜伽" is-link bind:click="createNew"/>
+      <van-cell id="每日运动&fathertag=运动" title="每日运动" is-link bind:click="createNew"/>
     </van-tab>
     <van-tab title="学习">
-      <van-cell id="测试一&fathertag=学习" title="测试一" is-link bind:click="createNew"/>
-      <van-cell id="测试二&fathertag=学习" title="测试二" is-link bind:click="createNew"/>
-      <van-cell id="测试三&fathertag=学习" title="测试三" is-link bind:click="createNew"/>
+      <van-cell id="英语&fathertag=学习" title="英语" is-link bind:click="createNew"/>
+      <van-cell id="复习&fathertag=学习" title="复习" is-link bind:click="createNew"/>
+      <van-cell id="考试&fathertag=学习" title="考试" is-link bind:click="createNew"/>
     </van-tab>
   </van-tabs>
   <van-dialog use-slot title="新建" show="{{ createshow }}" show-cancel-button confirm-button-open-type="getUserInfo" bind:close="onClose" bind:getuserinfo="getUserInfo">

@@ -2,6 +2,9 @@
 const app = getApp();
 Component({
   data: {
+    finish_icon:"/images/finish.png",
+    normal_icon:"/images/circle.png",
+    timeout_icon:"/images/timeout.png",
     todos: [],
     todo: {
       todoid: "",
@@ -28,8 +31,88 @@ Component({
     calendar_day:"",//日历显示的日期，首次打开时今日
     show_calender:false,//设置日历是否显示
     minDate:new Date(2020,3,1).getTime(),//日历最小显示范围 
+    radio_finish:"0",//未完成的单选框选择
+    radio_finished: "0",//已完成的单选框选择
+    radio_expired: "0",//已过期的单选框选择
+
+    tips_show:false,
   },
   methods: {
+    onTips(){
+      this.setData({
+        tips_show:true,
+      })
+    },
+    //未完成单选框选择
+    onChangeFinish(event){
+      if (this.data.radio_finished != 0) {
+        this.setData({
+          radio_finished: "0",
+        });
+      }
+      if (this.data.radio_expired != 0) {
+        this.setData({
+          radio_expired: "0",
+        });
+      }
+      if (this.data.radio_finish != 0) {
+        this.setData({
+          radio_finish: "0",
+        });
+      }
+      //单选框颜色的改变
+      this.setData({
+        radio_finish: event.detail,
+      });
+      this.finish(event.target.id);
+      
+    },
+    //已完成单选框选择
+    onChangeFinished(event){
+      if (this.data.radio_finished != 0) {
+        this.setData({
+          radio_finished: "0",
+        });
+      }
+      if (this.data.radio_expired != 0) {
+        this.setData({
+          radio_expired: "0",
+        });
+      }
+      if (this.data.radio_finish != 0) {
+        this.setData({
+          radio_finish: "0",
+        });
+      }
+      //单选框颜色的改变
+      this.setData({
+        radio_finished: event.detail,
+      });
+      this.unfinish(event.target.id);
+    },
+    onChangeExpired(event){
+      if (this.data.radio_finished != 0) {
+        this.setData({
+          radio_finished: "0",
+        });
+      }
+      if (this.data.radio_expired != 0) {
+        this.setData({
+          radio_expired: "0",
+        });
+      }
+      if (this.data.radio_finish != 0) {
+        this.setData({
+          radio_finish: "0",
+        });
+      }
+      //单选框颜色的改变
+      this.setData({
+        radio_expired: event.detail,
+      });
+      this.finish(event.target.id);
+    },
+
     //打开日历
     openCalender(){
       this.setData({ show_calender: true });
@@ -44,8 +127,7 @@ Component({
       } = event.detail;
       switch (position) {
         case 'left':{
-          this.finish(event.target.id);
-          break
+          break;
         }
         case 'cell':{
           break;
@@ -64,7 +146,6 @@ Component({
       } = event.detail;
       switch (position) {
         case 'left': {
-          this.unfinish(event.target.id);
           break;
         }
         case 'cell':{
@@ -84,9 +165,10 @@ Component({
           todoid:tid,
         }
       }).then(res =>{
-        wx.showToast({
-          title: '任务已完成',
-        });
+        //暂时屏蔽这一块，间隔时间长会影响用户体验
+        // wx.showToast({
+        //   title: '任务已完成',
+        // });
         app.globalData.sum_finished+=1; //完成总数加一
         this.data.today_finished_task.today_finished_sum +=1;
         if (this.data.today_finished_task.if_add == false){ //天数还未加一
@@ -140,7 +222,8 @@ Component({
         var tem = new Array();
         var ftem = new Array();
         var uftem = new Array();
-        var todayftem = new Array();//我是傻逼
+        var todayftem = new Array();
+        var todayuftem = new Array();
         for (var i = 0; i < res.result.data.length; i++) {
           that.data.todo = res.result.data[i];
           if (res.result.data[i].isfinished === true) {
@@ -150,6 +233,13 @@ Component({
             if(currentData < dateConvert1){
               tem.push(that.data.todo)
             }else{
+              var s = that.data.todo.timestamp;
+              var d = new Date();
+              d.setTime(s)
+              var day=d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate()
+              if(day === that.data.calendar_day){
+                todayuftem.push(that.data.todo)
+              }
               uftem.push(that.data.todo)
             }
           } else {
@@ -171,6 +261,8 @@ Component({
           flength: ftem.length,
           tftodos:todayftem,
           tflength:todayftem.length,
+          tuftodos:todayuftem,
+          tuflength:todayuftem.length
         })
       }).catch(err => {
         
@@ -193,14 +285,18 @@ Component({
     }
   },
   pageLifetimes: {
-
     show() {
+      if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+        this.getTabBar().setData({
+          selected: 0
+        })
+      };
       var today = new Date();
       this.setData({
         current_day:today,
         calendar_day: today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate(), //设置今日日期
       })
-      console.log(today)
+      console.log(today);
       if (this.data.today_finished_task.current_day > this.data.last_day){
         this.data.today_finished_task.last_day == this.data.current_day;//更新记录日期
         this.data.today_finished_task.today_finished_sum = 0;//重设为0
@@ -208,11 +304,6 @@ Component({
       }
       else{}
       var that = this
-      if (typeof this.getTabBar === 'function' && this.getTabBar()) {
-        this.getTabBar().setData({
-          selected: 0
-        })
-      };
       that.init()
       wx.cloud.callFunction({
         name:"remind"

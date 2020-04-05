@@ -145,6 +145,17 @@ Component({
   },
   pageLifetimes: {
     show() {
+      this.setData({
+        ongoing_number: app.globalData.gtem.length,
+        finished: app.globalData.sum_finished,
+        insisted:app.globalData.sum_insisted,
+      })
+      if (typeof this.getTabBar === 'function' &&
+        this.getTabBar()) {
+        this.getTabBar().setData({
+          selected: 2
+        })
+      }
       let Line = require('utils/line.js');
       let line = new Line();
       line.draw({
@@ -160,12 +171,6 @@ Component({
         finished: app.globalData.sum_finished,
         insisted:app.globalData.sum_insisted,
       })
-      if (typeof this.getTabBar === 'function' &&
-        this.getTabBar()) {
-        this.getTabBar().setData({
-          selected: 2
-        })
-      }
       //判断是否登录如果已经登陆就直接获取信息
       wx.getSetting({
         success: res => {

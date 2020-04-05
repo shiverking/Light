@@ -2,8 +2,6 @@
 <view class="page" >
 <van-nav-bar
   title='我的'
-  left-text="返回"
-  left-arrow
   bind:click-left="onClickLeft"
 />
 <view class="user-card">
@@ -15,7 +13,7 @@
     <van-cell title="{{userInfo.nickName}}" size="small" label="{{userInfo.province}} {{userInfo.city}}" bind:click="onGetOpenid"/>
    </van-col>
   </van-row>
-  <van-cell title="记录你走过的路" icon="search" bindtap="navigateToTimeline" clickable/>
+  <van-cell title="这里记录了你走过的路" icon="search" bindtap="navigateToTimeline" clickable/>
 </view>
 <!-- <van-button open-type='getUserInfo' lang="zh_CN" bindgetuserinfo="onGetUserInfo"></van-button> -->
 <van-grid column-num="3">
@@ -70,13 +68,14 @@
   <van-col span="4">
   <van-image
   round
-  width="4rem"
-  height="4rem"
+  width="3rem"
+  height="3rem"
   src="/images/logo.png"
+  style="padding-left:12%;"
   />
  </van-col>
   <van-col span="12"><van-cell title="关于灯火Light" title-class="project-title" size="large" label-class="project-desc" border="{{false}}"/>
-  <text class="developer_info" decode="{{true}}">&emsp;当前版本: v1.0.0 \n  &emsp;最新版本: v1.0.0 \n  &emsp;开发者：张开野 闫崇傲</text>
+  <text class="developer_info" decode="{{true}}">&emsp;当前版本: v1.0.0 \n  &emsp;最新版本: v1.0.0 \n  &emsp;开发者：守明 闫崇傲</text>
   </van-col>
 </van-row>
 </van-popup>

@@ -5,38 +5,77 @@
   </van-nav-bar>
   <van-calendar show="{{ show_calender }}" position="top" bind:close="onCloseCalender" bind:confirm="onConfirmCalender"  color="#87CEFA" min-date="{{minDate}}" />
   <view wx:for="{{todos}}" wx:for-index="todoindex" wx:for-item="itemName">
-    <van-swipe-cell right-width="{{ 60 }}" left-width="{{ 60 }}" async-close bind:close="onClose" id="{{itemName.todoid}}">
-      <van-button type="primary" slot="left">完成</van-button>
+    <van-swipe-cell right-width="{{ 60 }}" async-close bind:close="onClose" id="{{itemName.todoid}}">
+      <van-radio-group value="{{ radio_finish }}" bind:change="onChangeFinish" id="{{itemName.todoid}}">
       <van-cell-group>
-        <van-cell id="{{itemName.todoid}}" title="{{itemName.name}}" value="{{itemName.time}}" bind:click="todetail" />
+        <!-- <van-cell id="{{itemName.todoid}}" title="{{itemName.name}}" bind:click="todetail"> -->
+        <van-cell id="{{itemName.todoid}}" title="{{itemName.name}}" >
+        <van-row>
+        <van-col span="4">
+        <van-icon name="/images/edit.png" style="width:52rpx;height:52rpx;padding-right:50rpx;" bind:click="todetail"/>
+        </van-col>
+        <van-col span="20">
+        <van-radio use-icon-slot name="{{itemName.todoid}}" >
+          <image slot="icon" src="{{radio_finish === itemName.todoid ? finish_icon:normal_icon}}" style="width:52rpx;height:52rpx;padding-left:230rpx;"/>
+        </van-radio>
+        </van-col>
+        </van-row>
+        </van-cell>
       </van-cell-group>
-      <van-button type="danger" slot="right">删除</van-button>
+      </van-radio-group>
+      <van-button type="danger" slot="right" custom-style="height:100%;">删除</van-button>
     </van-swipe-cell>
   </view>
-
   <block wx:if="{{tflength > 0}}">
     <van-divider contentPosition="left" customStyle="color: #1989fa;border-color: #1989fa;font-size: 18px;">已完成</van-divider>
     <view wx:for="{{tftodos}}" wx:for-index="tftodoindex" wx:for-item="tfitem">
-      <van-swipe-cell right-width="{{ 60 }}" left-width="{{ 60 }}" async-close bind:close="fclose" id="{{tfitem.todoid}}">
-        <van-button type="primary" slot="left">还原</van-button>
+      <van-swipe-cell right-width="{{ 60 }}" async-close bind:close="fclose" id="{{tfitem.todoid}}">
+        <van-radio-group value="{{ radio_finished }}" bind:change="onChangeFinished" id="{{tfitem.todoid}}">
         <van-cell-group>
-          <van-cell title="{{tfitem.name}}" value="{{tfitem.finishedtime}}" />
+          <van-cell title="{{tfitem.name}}" label="完成时间:{{tfitem.finishedtime}}" >
+          <van-radio use-icon-slot name="{{tfitem.todoid}}">
+          <image slot="icon" src="{{radio_finished === tfitem.todoid ? normal_icon : finish_icon}}" style="width:52rpx;height:52rpx;padding-left:288rpx;"/>
+          </van-radio>
+          </van-cell>
         </van-cell-group>
-        <van-button type="danger" slot="right">删除</van-button>
+        </van-radio-group>
+        <van-button type="danger" slot="right" custom-style="height:100%;">删除</van-button>
       </van-swipe-cell>
     </view>
 
   </block>
-  <block wx:if="{{uflength > 0}}">
+  <block wx:if="{{tuflength > 0}}">
     <van-divider contentPosition="left" customStyle="color: #1989fa;border-color: #1989fa;font-size: 18px;">已过期</van-divider>
-    <view wx:for="{{uftodos}}" wx:for-index="uftodoindex" wx:for-item="ufitem">
-      <van-swipe-cell right-width="{{ 60 }}" left-width="{{ 60 }}" async-close bind:close="onClose" id="{{ufitem.todoid}}">
-        <van-button type="primary" slot="left">完成</van-button>
+    <view wx:for="{{tuftodos}}" wx:for-index="tuftodoindex" wx:for-item="tufitem">
+      <van-swipe-cell right-width="{{ 60 }}"  async-close bind:close="onClose" id="{{tufitem.todoid}}">
+        <van-radio-group value="{{ radio_expired }}" bind:change="onChangeExpired" id="{{tufitem.todoid}}">
         <van-cell-group>
-          <van-cell title="{{ufitem.name}}" value="{{ufitem.time}}" />
+          <van-cell title="{{tufitem.name}}" label="{{tufitem.time}}">
+          <van-radio use-icon-slot name="{{tufitem.todoid}}">
+            <image slot="icon" src="{{radio_expired === ufitem.todoid ? normal_icon:timeout_icon}}" style="width:52rpx;height:52rpx;padding-left:288rpx;"/>
+          </van-radio>
+          </van-cell>
         </van-cell-group>
-        <van-button type="danger" slot="right">删除</van-button>
+        </van-radio-group>
+        <van-button type="danger" slot="right" custom-style="height:100%;">删除</van-button>
       </van-swipe-cell>
     </view>
   </block>
+  <van-image
+  src="/images/tips.png"
+  custom-class="tips-class"
+  bindtap="onTips"
+  />
+  <van-dialog
+  use-slot
+  title="Tips"
+  show="{{ tips_show }}"
+  bind:close="onClose"
+  closeOnClickOverlay
+  transition="{{fade}}"
+  confirm-button-text="我知道了"
+>
+<text style="font-size:13px;font-weight:350;"decode="{{true}}">&emsp;1.误点击了完成怎么办？\n &emsp;只要在已完成的任务中再点击一次对号即可恢复\n &emsp;2.任务过期了怎么办？\n &emsp;点击一次红色的时钟即可完成过期的任务哦 \n &emsp;3.如何修改任务信息？\n &emsp;点击任务名称后面的修改符号即可
+</text>
+</van-dialog>
 </view>

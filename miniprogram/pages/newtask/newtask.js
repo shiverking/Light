@@ -14,10 +14,6 @@ Component({
       }
       return value;
     },
-    icon: {
-      normal: 'https://img.yzcdn.cn/vant/user-inactive.png',
-      active: 'https://img.yzcdn.cn/vant/user-active.png'
-    },
     my_tags:[], //用来存储用户自定义的打卡项目
   },
   methods:{

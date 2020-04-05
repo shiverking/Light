@@ -67,7 +67,9 @@
     "van-toast": "@vant/weapp/toast/index",
     "van-switch": "@vant/weapp/switch/index",
     "van-circle": "@vant/weapp/circle/index",
-    "van-calendar": "@vant/weapp/calendar/index"
+    "van-calendar": "@vant/weapp/calendar/index",
+    "van-radio": "@vant/weapp/radio/index",
+    "van-radio-group": "@vant/weapp/radio-group/index"
   },
   "window": {
     "backgroundTextStyle": "light",
