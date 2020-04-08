@@ -1,7 +1,9 @@
 const app = getApp();
 const db = wx.cloud.database();
+var bar = null;
 Component({
   data: {
+    percentage:0,//百分比
     test:2,
     logged: false,
     avatarUrl: '/images/unkown.png',
@@ -14,24 +16,26 @@ Component({
       '0%': '#4facfe',
       '100%': '#00f2fe'
     },
-    linedata: [
+    bardata:[
       {
-        value: 23,    //数字
-        txt: '02-08'  //比如是日期
+        tag:"我的",
+        value: 1,    
       },
       {
-        value: 24,    //数字
-        txt: '02-09'  //比如是日期
+        tag:"生活",
+        value: 2,    
       },
       {
-        value: 25,    //数字
-        txt: '02-10'  //比如是日期
+        tag:"运动",
+        value: 1,    
       },
       {
-        value: 26,    //数字
-        txt: '02-11'  //比如是日期
+        tag:"学习",
+        value: 4,    
       }
-    ]
+    ],
+  },
+  attached: function() {
   },
   methods:{
     //展示弹出层
@@ -132,23 +136,35 @@ Component({
         url:'../me/FAQ/faq'
       })
     },
-    navigateToVersion:function(){
-      wx.navigateTo({
-        url: '../me/Version/version'
-      })
-    },
     navigateToTimeline: function () {
       wx.navigateTo({
         url: '../me/timeline/timeline'
       })
     },
+    setting:function(){
+      wx.showToast({
+        title: '正在开发中！',
+        image: '/images/onprogramming.png',
+      })
+    },
   },
-  pageLifetimes: {
+  pageLifetimes:{
     show() {
+      let finished = app.globalData.sum_finished;
+      let sum = app.globalData.gftem.length + app.globalData.gtem.length;
+      var tmp_percentage = finished / sum
+      tmp_percentage = tmp_percentage.toFixed(3);
+      tmp_percentage *=100;
+      //console.log(tmp_percentage);
       this.setData({
         ongoing_number: app.globalData.gtem.length,
         finished: app.globalData.sum_finished,
         insisted:app.globalData.sum_insisted,
+        'bardata[0].value': app.globalData.tag1,
+        'bardata[1].value': app.globalData.tag2,
+        'bardata[2].value': app.globalData.tag3,
+        'bardata[3].value': app.globalData.tag4,
+         percentage:tmp_percentage
       })
       if (typeof this.getTabBar === 'function' &&
         this.getTabBar()) {
@@ -156,14 +172,41 @@ Component({
           selected: 2
         })
       }
-      let Line = require('utils/line.js');
-      let line = new Line();
-      line.draw({
-        renderTo: 'lineCanvas',
-        series: this.data.linedata, //data 数据结构见下文
-        pagePadding: 12, //页面左右padding的像素值
-        setCanvasSize: o => this.setData({ lineCtxHeight: o.height }), 
-        onTouch: e => this.setData({ oneDayData: e.serie }) 
+      // 组件生命周期函数，在组件实例进入页面节点树时执行。
+      var id = "runCanvas"
+      var c = this.data.percentage
+      const ctx2 = wx.createCanvasContext(id);
+      wx.createSelectorQuery().select('#' + id).boundingClientRect(function (rect) { //监听canvas的宽高
+        var w = parseInt(rect.width / 2); //获取canvas宽的的一半
+        var h = parseInt(rect.height / 2); //获取canvas高的一半
+        let that = this;
+        var num = (2 * Math.PI / 100 * c) - 0.5 * Math.PI;
+        //圆环的绘制
+        ctx2.arc(w, h, w - 8, -0.5 * Math.PI, num); //绘制的动作
+        ctx2.setStrokeStyle("#1E90FF"); //圆环线条的颜色
+        ctx2.setLineWidth("16");	//圆环的粗细
+        ctx2.setLineCap("butt");	//圆环结束断点的样式  butt为平直边缘 round为圆形线帽  square为正方形线帽
+        ctx2.stroke();
+        //开始绘制百分比数字
+        ctx2.beginPath();
+        ctx2.setFontSize(40); // 字体大小 注意不要加引号
+        ctx2.setFillStyle("#00BFFF");	 // 字体颜色
+        ctx2.setTextAlign("center");	 // 字体位置
+        ctx2.setTextBaseline("middle");	 // 字体对齐方式
+        ctx2.fillText(c + "%", w, h);	 // 文字内容和文字坐标
+        ctx2.draw();
+      }).exec();
+
+      let Bar = require('../../utils/bar.js');
+      bar = new Bar();
+      bar.draw({
+        renderTo: "tagRateCanvas",
+        series: this.data.bardata,
+        setCanvasSize: o => this.setData({ ctxHeight: o.height }),
+        onTouch: (e) => {
+          let serie = e.serie
+          this.renderRecords(serie.items)
+        }
       })
 
       this.setData({
@@ -201,27 +244,19 @@ Component({
             db.collection('userlist').add({
               data: {},
               success: res => {
-                // 在返回结果中会包含新创建的记录的 _id
-                // wx.showToast({
-                //   title: '新增记录成功',
-                // })
                 console.log('[数据库] [新增记录] 成功，记录 _id: ', res._id)
               },
               fail: err => {
-                // wx.showToast({
-                //   icon: 'none',
-                //   title: '新增记录失败'
-                // })
                 console.error('[数据库] [新增记录] 失败：', err)
               }
             })
           }
         },
         fail: err => {
-          wx.showToast({
-            icon: 'none',
-            title: '查询记录失败'
-          })
+          // wx.showToast({
+          //   icon: 'none',
+          //   title: '查询记录失败'
+          // })
           //调试用语句
           console.error('[数据库] [查询记录] 失败：', err)
         }

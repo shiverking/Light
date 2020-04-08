@@ -1,8 +1,19 @@
 /* miniprogram/pages/todo/todo.wxss */
 .tips-class{
+  display:flex;
+  justify-content: center;
+  padding-top: 80%; 
+}
+.tips-class image{
   width : 100rpx;
   height:  100rpx;
-  padding-left:44%;
-  padding-top: 200rpx;
-  padding-bottom: 50rpx; 
+}
+.notfound{
+  display:flex;
+  justify-content: center;
+  padding-top: 100rpx; 
+}
+.notfound image{
+  width: 200rpx;
+  height: 200rpx;
 }

@@ -3,27 +3,39 @@
   <van-nav-bar title='开始新的任务吧' bind:click-left="onClickLeft" >
     <van-icon name="/images/need-efforts0.png" slot="left" size="25px" custom-style="padding-bottom:10px;"/>
   </van-nav-bar>
-  <van-cell title="自定义打卡项目" icon="add-o" bindtap="navigateToDefined" clickable="true"></van-cell>
-  <van-cell title="请选择一个推荐的打卡项目" icon="good-job-o" />
+  <van-cell title="没有你想要的任务？试试这里" icon="add-o" bindtap="navigateToDefined" clickable="true"></van-cell>
+  <van-cell title="请选择一个你的打卡项目" icon="good-job-o" />
   <van-tabs animated color="rgb(65,105,225)">
     <van-tab title="我的">
       <van-cell wx:for="{{my_tags}}" id="{{item.tagname}}&fathertag=我的" title="{{item.tagname}}" bind:click="createNew" is-link />
     </van-tab>
     <!-- 以下项目都只是作为测试用   修改title记得把id也一起修改-->
-    <van-tab title="健康">
-      <van-cell id="看病&fathertag=健康" title="看病" is-link bind:click="createNew" />
-      <van-cell id="吃药&fathertag=健康" title="吃药" is-link bind:click="createNew" />
-      <van-cell id="养生&fathertag=健康" title="养生" is-link bind:click="createNew" />
+    <van-tab title="生活">
+      <van-cell id="锻炼&fathertag=生活" title="锻炼" is-link bind:click="createNew" />
+      <van-cell id="减肥&fathertag=生活" title="减肥" is-link bind:click="createNew" />
+      <van-cell id="美容&fathertag=生活" title="美容" is-link bind:click="createNew" />
+      <van-cell id="约会&fathertag=生活" title="约会" is-link bind:click="createNew" />
+      <van-cell id="游戏&fathertag=生活" title="游戏" is-link bind:click="createNew" />
+      <van-cell id="养生&fathertag=生活" title="养生" is-link bind:click="createNew" /> 
+      <van-cell id="其他&fathertag=生活" title="其他" is-link bind:click="createNew" /> 
     </van-tab>
     <van-tab title="运动">
       <van-cell id="长跑&fathertag=运动" title="长跑" is-link bind:click="createNew" />
       <van-cell id="瑜伽&fathertag=运动" title="瑜伽" is-link bind:click="createNew"/>
-      <van-cell id="每日运动&fathertag=运动" title="每日运动" is-link bind:click="createNew"/>
+      <van-cell id="篮球&fathertag=运动" title="篮球" is-link bind:click="createNew"/>
+      <van-cell id="足球&fathertag=运动" title="足球" is-link bind:click="createNew"/>
+      <van-cell id="短跑&fathertag=运动" title="短跑" is-link bind:click="createNew"/>
+      <van-cell id="骑行&fathertag=运动" title="骑行" is-link bind:click="createNew"/>
+      <van-cell id="其他&fathertag=运动" title="其他" is-link bind:click="createNew"/>
     </van-tab>
     <van-tab title="学习">
       <van-cell id="英语&fathertag=学习" title="英语" is-link bind:click="createNew"/>
-      <van-cell id="复习&fathertag=学习" title="复习" is-link bind:click="createNew"/>
-      <van-cell id="考试&fathertag=学习" title="考试" is-link bind:click="createNew"/>
+      <van-cell id="数学&fathertag=学习" title="数学" is-link bind:click="createNew"/>
+      <van-cell id="语文&fathertag=学习" title="语文" is-link bind:click="createNew"/>
+      <van-cell id="物理&fathertag=学习" title="物理" is-link bind:click="createNew"/>
+      <van-cell id="化学&fathertag=学习" title="化学" is-link bind:click="createNew"/>
+      <van-cell id="生物&fathertag=学习" title="生物" is-link bind:click="createNew"/>
+      <van-cell id="其他&fathertag=学习" title="其他" is-link bind:click="createNew"/>
     </van-tab>
   </van-tabs>
   <van-dialog use-slot title="新建" show="{{ createshow }}" show-cancel-button confirm-button-open-type="getUserInfo" bind:close="onClose" bind:getuserinfo="getUserInfo">

@@ -36,46 +36,63 @@
   <text class="info-font">已坚持天数:{{insisted}}</text>
   </van-grid-item>
 </van-grid>
-<van-tabs type="line" color="rgb(65,105,225)" >
+<van-tabs type="line" color="rgb(65,105,225)" swipeable>
   <van-tab title="任务完成率">
-   <view class="charts-card">
-    <text class="charts-card__header">今日完成率</text>
-    <canvas class="charts-card__body" canvas-id="chartsA" >
-    <van-circle class="circle-position"  value="{{79}}" stroke-width="13" size="150" text="70%" color="{{gradientColor}}"/>
+   <view class="canvasBox">
+    <view class='bigCircle'></view>
+    <view class='littleCircle'></view>
+    <canvas canvas-id="runCanvas" id="runCanvas" class='canvas'>
     </canvas>
   </view>
   </van-tab>
-  <van-tab title="每天完成量">
+  <!--不会，太难了画不出来>
+  <!-- <van-tab title="完成量统计">
    <view class="charts-card">
+<<<<<<< HEAD
     <view class="charts-card__header">完成量统计</view>
     <canvas class="charts-card__body" canvas-id="lineCanvas" bindtouchstart="touchHandler" bindtouchmove="moveHandler" bindtouchend="touchEndHandler">
+=======
+    <view class="charts-card__header">本周统计</view>
+    <canvas class="charts-card__body" canvas-id="lineCanvas" bindtouchend="touchEndHandler">
+>>>>>>> master
     </canvas>
   </view>
-  </van-tab>
+  </van-tab> -->
   <van-tab title="任务统计">
-   <view class="charts-card">
-    <view class="charts-card__header">任务统计</view>
-    <canvas class="charts-card__body" canvas-id="chartsC" bindtouchstart="touchHandler" bindtouchmove="moveHandler" bindtouchend="touchEndHandler"></canvas>
+   <view class="canvasBox-2">
+    <van-row  style="top:20rpx;">
+      <van-col span="6"><van-button plain round size="small" color="#6699FF" class="center-position">我的:{{bardata[0].value}}</van-button></van-col>
+      <van-col span="6"><van-button plain round size="small" color="#09BB07" class="center-position">生活:{{bardata[1].value}}</van-button></van-col>
+      <van-col span="6"><van-button plain round size="small" color="#e64340" class="center-position">运动:{{bardata[2].value}}</van-button></van-col>
+      <van-col span="6"><van-button plain round size="small" color="#576b95" class="center-position">学习:{{bardata[3].value}}</van-button></van-col>
+    </van-row>
+    <canvas class="charts-card__body" canvas-id="tagRateCanvas">
+    </canvas>
   </view>
   </van-tab>
 </van-tabs>
-<van-cell title="设置" is-link />
+<van-cell title="设置" is-link bindtap="setting"/>
 <van-cell title="常见问题" is-link bindtap="navigateToFAQ"/>
 <van-cell title="版本信息" is-link  bind:click="showPopup" />
 <van-popup show="{{ show }}" bind:close="onClosePopup" position="bottom"
-  custom-style="height: 30%;" round>
+  custom-style="height: 30%;">
 <van-row>
   <van-col span="4">
   <van-image
   round
-  width="3rem"
-  height="3rem"
+  width="3.5rem"
+  height="3.5rem"
   src="/images/logo.png"
-  style="padding-left:12%;"
+  style="display:flex;justify-content: center;"
   />
  </van-col>
-  <van-col span="12"><van-cell title="关于灯火Light" title-class="project-title" size="large" label-class="project-desc" border="{{false}}"/>
-  <text class="developer_info" decode="{{true}}">&emsp;当前版本: v1.0.0 \n  &emsp;最新版本: v1.0.0 \n  &emsp;开发者：守明 闫崇傲</text>
+  <van-col span="12">
+  <view style="line-height: 1.8rem;">
+  <text class="project-name">关于灯火Light \n</text>
+  <text class="developer_info">当前版本: v1.0.0 \n</text>
+  <text class="developer_info">最新版本: v1.0.0 \n</text>
+  <text class="developer_info">开发者：守明仁明 田若星</text>
+  </view>
   </van-col>
 </van-row>
 </van-popup>

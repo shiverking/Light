@@ -126,7 +126,6 @@ Page({
     }else{
       var i = this.getId();
       const db = wx.cloud.database();
-      console.log(app.globalData.openid);
       var a  = app.globalData.openid;
       a=a.toString
       if(this.data.checked === true){
@@ -153,10 +152,7 @@ Page({
         .then(res => {
           wx.showToast({
             title: '添加成功',
-          }),
-            setTimeout(function () {
-            wx.navigateBack({})
-            }, 1000)
+          })
         })
         .catch(console.error)
     }

@@ -1,7 +1,6 @@
 /* miniprogram/pages/me/FAQ/faq.wxss */
 .contact-us{
-  position: absolute;
-  margin-left: 35%;
-  bottom: 15%;
-  
+  padding-top: 200rpx;
+  display:flex;
+  justify-content: center;
 }

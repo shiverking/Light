@@ -1,12 +1,12 @@
 <van-nav-bar title='新建任务' left-text="返回" left-arrow bind:click-left="onClickLeft" />
-<van-field id="name" value="{{name}}" label="名称" placeholder="请输入名称" input-align="right" bind:change="onClose" />
-<van-field id="describe" value="{{describe}}" label="描述" placeholder="请输入描述" input-align="right" bind:change="onClose" />
-<van-field id="tag" value="{{tag}}" label="标签" placeholder="请输入标签" input-align="right" bind:change="onClose" disabled="true"/>
+<van-field id="name" value="{{name}}" label="名称" placeholder="给你的任务取个名字吧" input-align="left" bind:change="onClose" required="true"/>
+<van-field id="describe" value="{{describe}}" label="描述" placeholder="描述一下这个任务(可选)" input-align="left" bind:change="onClose" type="textarea" autosize />
+<van-field id="tag" value="{{tag}}" label="任务类型" input-align="left" bind:change="onClose" disabled="true"/>
 <van-cell title="截止时间" is-link value="{{time}}" bind:click="chooseTime" />
 <van-cell title="是否提醒">
   <van-switch checked="{{ checked }}" bind:change="onChange" size="24px"  active-color="#07c160"/>
 </van-cell>
-<van-button type="primary" size="large" bind:click="submit">确认</van-button>
+<van-button type="primary" size="large" bind:click="submit" color="linear-gradient(to right, #b721ff, #21d4fd)">我填好了</van-button>
 <van-popup show="{{ show }}" position="bottom" custom-style="height: 55%;">
   <van-datetime-picker type="datetime" value="{{ currentDate }}" bind:confirm="sTime" bind:cancel="cancel" min-date="{{ minminute }}" formatter="{{ formatter }}" />
 </van-popup>

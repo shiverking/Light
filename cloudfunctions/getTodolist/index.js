@@ -9,15 +9,30 @@ exports.main = async (event, context) => {
   return await db.collection('userlist').where({
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> master
     todoid: event.todoid 
 =======
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> master
+>>>>>>> master
 =======
     todoid: event.todoid 
 =======
 <<<<<<< HEAD
+>>>>>>> master
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> master
 >>>>>>> master
 >>>>>>> master
 <<<<<<< HEAD
@@ -32,6 +47,12 @@ exports.main = async (event, context) => {
 =======
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> master
+>>>>>>> master
 >>>>>>> master
 >>>>>>> master
 >>>>>>> master

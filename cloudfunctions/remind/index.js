@@ -15,7 +15,15 @@ exports.main = async(event, context) => {
   try {
     for (var i = 0; i < todos.length; i++) {
       var t = todos[i].timestamp;
+<<<<<<< HEAD
       if (t < currentDate-6000 && t >= currentDate-12000 ) {
+=======
+<<<<<<< HEAD
+      if (t < currentDate && t >= currentDate-6000 ) {
+=======
+      if (t < currentDate-6000 && t >= currentDate-12000 ) {
+>>>>>>> master
+>>>>>>> master
         exectasks.push(todos[i])
       }
     }

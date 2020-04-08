@@ -3,7 +3,7 @@
   <van-nav-bar title='任务清单' bind:click-left="openCalender">
     <van-icon name="/images/calender.png" slot="left" size="25px" custom-style="padding-bottom:10px;" />
   </van-nav-bar>
-  <van-calendar show="{{ show_calender }}" position="top" bind:close="onCloseCalender" bind:confirm="onConfirmCalender"  color="#87CEFA" min-date="{{minDate}}" />
+  <van-calendar show="{{ show_calender }}" position="top" bind:close="onCloseCalender" bind:confirm="onConfirmCalender"  color="#87CEFA" min-date="{{minDate}}" show-title="{{false}}"/>
   <view wx:for="{{todos}}" wx:for-index="todoindex" wx:for-item="itemName">
     <van-swipe-cell right-width="{{ 60 }}" async-close bind:close="onClose" id="{{itemName.todoid}}">
       <van-radio-group value="{{ radio_finish }}" bind:change="onChangeFinish" id="{{itemName.todoid}}">
@@ -12,7 +12,7 @@
         <van-cell id="{{itemName.todoid}}" title="{{itemName.name}}" >
         <van-row>
         <van-col span="4">
-        <van-icon name="/images/edit.png" style="width:52rpx;height:52rpx;padding-right:50rpx;" bind:click="todetail"/>
+        <van-icon  id="{{itemName.todoid}}" name="/images/edit.png" style="width:52rpx;height:52rpx;padding-right:50rpx;" bind:click="todetail"/>
         </van-col>
         <van-col span="20">
         <van-radio use-icon-slot name="{{itemName.todoid}}" >
@@ -61,11 +61,13 @@
       </van-swipe-cell>
     </view>
   </block>
+  <block wx:if="{{tuflength > 0|tflength > 0|flength > 0}}">
   <van-image
   src="/images/tips.png"
-  custom-class="tips-class"
+  class="tips-class"
   bindtap="onTips"
   />
+  </block>
   <van-dialog
   use-slot
   title="Tips"
@@ -78,4 +80,10 @@
 <text style="font-size:13px;font-weight:350;"decode="{{true}}">&emsp;1.误点击了完成怎么办？\n &emsp;只要在已完成的任务中再点击一次对号即可恢复\n &emsp;2.任务过期了怎么办？\n &emsp;点击一次红色的时钟即可完成过期的任务哦 \n &emsp;3.如何修改任务信息？\n &emsp;点击任务名称后面的修改符号即可
 </text>
 </van-dialog>
+<block wx:if="{{tuflength == 0 && tflength == 0 &&length == 0}}">
+<van-image
+  src="/images/notfound.png"
+  class="notfound"
+/>
+</block>
 </view>

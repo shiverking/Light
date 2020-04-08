@@ -30,6 +30,10 @@ App({
       gtags:{},//tag列表
       sum_insisted:0,//总的坚持天数
       sum_finished:0,//总的任务完成数量
+      tag1:0,//各fatheratg的数量统计
+      tag2:0,//
+      tag3:0,//
+      tag4:0,//
     }
   }
 })
