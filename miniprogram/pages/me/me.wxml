@@ -10,7 +10,11 @@
     <image class="user-card__head" src="{{avatarUrl}}"></image>
    </van-col>
    <van-col span="20">
-    <van-cell title="{{userInfo.nickName}}" size="small" label="{{userInfo.province}} {{userInfo.city}}" bind:click="onGetOpenid"/>
+    <van-cell title="{{userInfo.nickName}}" size="small" label="{{userInfo.province}} {{userInfo.city}}">
+      <block wx:if="{{avatarUrl=='/images/unkown.png'}}">
+        <van-button plain type="info"open-type='getUserInfo' lang="zh_CN" bindgetuserinfo="onGetUserInfo">授权登录</van-button>
+      </block>
+    </van-cell>
    </van-col>
   </van-row>
   <van-cell title="这里记录了你走过的路" icon="search" bindtap="navigateToTimeline" clickable/>
@@ -49,11 +53,22 @@
   <!-- <van-tab title="完成量统计">
    <view class="charts-card">
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    <view class="charts-card__header">本周统计</view>
+    <canvas class="charts-card__body" canvas-id="lineCanvas" bindtouchend="touchEndHandler">
+=======
+<<<<<<< HEAD
+>>>>>>> master
     <view class="charts-card__header">完成量统计</view>
     <canvas class="charts-card__body" canvas-id="lineCanvas" bindtouchstart="touchHandler" bindtouchmove="moveHandler" bindtouchend="touchEndHandler">
 =======
     <view class="charts-card__header">本周统计</view>
     <canvas class="charts-card__body" canvas-id="lineCanvas" bindtouchend="touchEndHandler">
+>>>>>>> master
+<<<<<<< HEAD
+=======
+>>>>>>> master
 >>>>>>> master
     </canvas>
   </view>

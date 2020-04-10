@@ -152,7 +152,11 @@ Page({
         .then(res => {
           wx.showToast({
             title: '添加成功',
-          })
+          }),
+          setTimeout(function(){
+            wx.navigateBack({})
+          },1500
+          )
         })
         .catch(console.error)
     }

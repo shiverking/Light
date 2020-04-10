@@ -5,7 +5,7 @@ Component({
     finish_icon: "/images/finish.png",
     normal_icon: "/images/circle.png",
     timeout_icon: "/images/timeout.png",
-    openid:"",
+    openid: "",
     todos: [],
     todo: {
       todoid: "",
@@ -24,23 +24,29 @@ Component({
     id: [],
     show: false,
     today_finished_task: { //今日完成任务情况
-      last_day: '', //上一个被记录的日期
+      current_day: '', //维护一个日期变量
+      today_finished_sum: '', //今日完成任务总数
+      if_add: false //是否坚持天数加一
+    },
+    today_finished_task_record: { //由数据库记录的今日完成任务情况
       current_day: '', //维护一个日期变量
       today_finished_sum: '', //今日完成任务总数
       if_add: false //是否坚持天数加一
     },
     calendar_day: "", //日历显示的日期，首次打开时今日
-    show_calender: false, //设置日历是否显示
+    show_calender: false, //设置日历是否显示 
     minDate: new Date(2020, 3, 1).getTime(), //日历最小显示范围 
+    maxDate: new Date().getTime(), //日历最大显示范围
     radio_finish: "0", //未完成的单选框选择
     radio_finished: "0", //已完成的单选框选择
     radio_expired: "0", //已过期的单选框选择
-
-    tag1:0,
-    tag2:0,
-    tag3:0,
-    tag4:0,
-    tips_show: false,
+    sum_finished: 0,
+    sum_insisted: 0,
+    tag1: 0,
+    tag2: 0,
+    tag3: 0,
+    tag4: 0,
+    tips_show: false, //初始不展示tips
   },
   methods: {
     onTips() {
@@ -127,6 +133,19 @@ Component({
       this.setData({
         show_calender: false
       });
+      this.finish(event.target.id);
+    },
+
+    //打开日历
+    openCalender() {
+      this.setData({
+        show_calender: true
+      });
+    },
+    onCloseCalender() {
+      this.setData({
+        show_calender: false
+      });
     },
     onClose(event) {
       const {
@@ -186,20 +205,21 @@ Component({
           this.data.today_finished_task.if_add = true;
         }
         var array = app.globalData.gtem;
-        for (var index in array){
-          if(array[index].todoid === tid){
+        for (var index in array) {
+          if (array[index].todoid === tid) {
             var temft = array[index].fathertag
-            if(temft === "我的"){
+            if (temft === "我的") {
               app.globalData.tag1 += 1
-            }else if(temft === "生活"){
+            } else if (temft === "生活") {
               app.globalData.tag2 += 1
-            }else if(temft === "运动"){
-              app.globalData.tag3 +=1
-            }else if(temft === "学习"){
-              app.globalData.tag4 +=1
+            } else if (temft === "运动") {
+              app.globalData.tag3 += 1
+            } else if (temft === "学习") {
+              app.globalData.tag4 += 1
             }
           }
         }
+        console.log(app.globalData.tag1)
         this.init();
       })
     },
@@ -213,9 +233,11 @@ Component({
         if (app.globalData.sum_finished > 0) {
           app.globalData.sum_finished -= 1; //完成总数减一
         }
+
         if (this.data.today_finished_task.today_finished_sum > 0) {
           this.data.today_finished_task.today_finished_sum -= 1;
         }
+
         if (this.data.today_finished_task.today_finished_sum == 0) { //今日任务全部还原
           this.data.today_finished_task.if_add = false; //修改为还未加一
           if (app.globalData.sum_insisted > 0) {
@@ -226,13 +248,13 @@ Component({
         for (var index in array) {
           if (array[index].todoid === tid) {
             var temft = array[index].fathertag
-            if (temft === "我的") {
-              app.globalData.tag1 -= 1
-            } else if (temft === "生活") {
+            if (temft === "我的" && app.globalData.tag1 >0) {
+              app.globalData.tag1 -=1
+            } else if (temft === "生活" && app.globalData.tag2 > 0) {
               app.globalData.tag2 -= 1
-            } else if (temft === "运动") {
+            } else if (temft === "运动" && app.globalData.tag3 > 0) {
               app.globalData.tag3 -= 1
-            } else if (temft === "学习") {
+            } else if (temft === "学习" && app.globalData.tag4 > 0) {
               app.globalData.tag4 -= 1
             }
           }
@@ -303,11 +325,9 @@ Component({
           tflength: todayftem.length,
           tuftodos: todayuftem,
           tuflength: todayuftem.length,
-          openid:that.data.todo._openid
+          openid: that.data.todo._openid
         })
-      }).catch(err => {
-
-      })
+      }).catch(err => {})
     },
     todetail(event) { //点击任务单元格进行跳转
       var i = event.target.id
@@ -332,16 +352,7 @@ Component({
           selected: 0
         })
       };
-      var today = new Date();
-      this.setData({
-        current_day: today,
-        calendar_day: today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate(), //设置今日日期
-      })
-      if (this.data.today_finished_task.current_day > this.data.last_day) {
-        this.data.today_finished_task.last_day == this.data.current_day; //更新记录日期
-        this.data.today_finished_task.today_finished_sum = 0; //重设为0
-        this.this.data.today_finished_task.if_add = false;
-      } else {}
+      //查询数据库更新记录
       var that = this
       that.init()
       var a = app.globalData.openid;
@@ -349,40 +360,100 @@ Component({
       const db = wx.cloud.database()
       // 查询当前用户所有的 counters
       db.collection('userlist').where({
-        _openid: a
+        _openid: "o5EIh5YQ94HhfOj3B - s_cEJsTV8M"
       }).get({
         success: res => {
           that.setData({
+            sum_finished: res.data[0].sum_finished,
+            sum_insisted: res.data[0].sum_insisted,
             tag1: res.data[0].tag1,
             tag2: res.data[0].tag2,
             tag3: res.data[0].tag3,
-            tag4: res.data[0].tag4
+            tag4: res.data[0].tag4,
+            today_finished_task_record: res.data[0].today_finished_task
           })
-          app.globalData.tag1 = that.data.tag1,
-          app.globalData.tag2 = that.data.tag2,
-          app.globalData.tag3 = that.data.tag3,
-          app.globalData.tag4 = that.data.tag4
+          if (that.data.tag1 < 0) {
+            that.data.tag1 = 0
+          };
+          if (that.data.tag2 < 0) {
+            that.data.tag2 = 0
+          };
+          if (that.data.tag3 < 0) {
+            that.data.tag3 = 0
+          };
+          if (that.data.tag4 < 0) {
+            that.data.tag4 = 0
+          };
+            app.globalData.tag1 = that.data.tag1,
+            app.globalData.tag2 = that.data.tag2,
+            app.globalData.tag3 = that.data.tag3,
+            app.globalData.tag4 = that.data.tag4,
+            app.globalData.sum_finished = that.data.sum_finished,
+            app.globalData.sum_insisted = that.data.sum_insisted
+          this.setData({
+            today_finished_task_record: that.data.today_finished_task_record,
+          })
         },
         fail: err => {
-          wx.showToast({
-            icon: 'none',
-            title: '查询记录失败'
-          })
+          console.log(err)
         }
       })
+      //构造今日日期 格式yyyy-mm-dd
+      var today = new Date();
+      var seperator1 = "-";
+      var year = today.getFullYear();
+      var month = today.getMonth() + 1;
+      var strDate = today.getDate();
+      if (month >= 1 && month <= 9) {
+        month = "0" + month;
+      }
+      if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+      }
+      var currentdate = year + seperator1 + month + seperator1 + strDate;
+
+      this.setData({
+        ["today_finished_task.current_day"]: currentdate,
+        calendar_day: today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate(), //设置今日日期
+      })
+
+      //如果数据库记录的当前日期为空
+      if (this.data.today_finished_task_record.current_day == '') {
+        this.setData({ //用临时记录给数据库记录赋值
+          today_finished_task_record: this.data.today_finished_task,
+        })
+      } else {
+        if (new Date(Date.parse((this.data.today_finished_task_record.current_day).replace(/-/g, "/"))) < new Date(Date.parse((this.data.today_finished_task.current_day).replace(/-/g, "/")))) { //数据库记录的数据较晚
+          this.setData({
+            today_finished_task_record: this.data.today_finished_task, //用临时记录给数据库记录赋值
+          })
+        } else { //数据库与临时记录的时间相等
+          this.setData({
+            today_finished_task: this.data.today_finished_task_record, //用数据库记录给临时记录赋值
+          })
+        }
+      }
     },
     hide: function() {
+      this.setData({
+        today_finished_task_record: this.data.today_finished_task,
+      })
       //存储数据
+
+      console.log("hide")
       var a = app.globalData.openid;
       a = a.toString
       wx.cloud.callFunction({
-        name:"updateUserTag",
-        data:{
-          _openid:this.data.openid,
+        name: "updateUserTag",
+        data: {
+          _openid: this.data.openid,
+          sum_insisted: app.globalData.sum_insisted, //总的坚持天数
+          sum_finished: app.globalData.sum_finished, //总的任务完成数量
           tag1: app.globalData.tag1,
           tag2: app.globalData.tag2,
           tag3: app.globalData.tag3,
           tag4: app.globalData.tag4,
+          today_finished_task: this.data.today_finished_task_record
         }
       })
     }

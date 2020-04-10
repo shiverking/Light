@@ -2,7 +2,7 @@
 .tips-class{
   display:flex;
   justify-content: center;
-  padding-top: 80%; 
+  padding-top: 400rpx;
 }
 .tips-class image{
   width : 100rpx;

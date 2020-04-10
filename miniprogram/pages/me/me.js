@@ -152,9 +152,12 @@ Component({
     show() {
       let finished = app.globalData.sum_finished;
       let sum = app.globalData.gftem.length + app.globalData.gtem.length;
-      var tmp_percentage = finished / sum
-      tmp_percentage = tmp_percentage.toFixed(3);
-      tmp_percentage *=100;
+      if (sum == 0){
+        tmp_percentage = 0;
+      }
+      if(sum != 0){
+        var tmp_percentage = ((finished / sum)*100).toFixed(1)
+      }
       //console.log(tmp_percentage);
       this.setData({
         ongoing_number: app.globalData.gtem.length,
@@ -231,6 +234,9 @@ Component({
           }
         }
       })
+
+
+
       // 查询当前用户是否在用户列表中
       db.collection('userlist').where({
         _openid: this.data.openid
@@ -239,10 +245,22 @@ Component({
           if (res.data.length == 1) {
             //该用户在数据库中
           } else {
-            //该用户不在数据库中，则进行添加
+            //该用户不在数据库中，则进行添加数据和相应字段
             console.log('[数据库] [查询记录] 失败: ', res.data.length)
             db.collection('userlist').add({
-              data: {},
+              data: {
+                sum_insisted: 0,//总的坚持天数
+                sum_finished: 0,//总的任务完成数量
+                tag1: 0,//各fatheratg的数量统计,以下都是
+                tag2: 0,
+                tag3: 0,
+                tag4: 0,
+                today_finished_task: { //今日完成任务情况
+                  current_day: '',  //维护一个日期变量
+                  today_finished_sum: '',  //今日完成任务总数
+                  if_add: false  //是否坚持天数加一
+                },
+              },
               success: res => {
                 console.log('[数据库] [新增记录] 成功，记录 _id: ', res._id)
               },

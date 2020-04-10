@@ -1,10 +1,11 @@
 <!--pages/tododetail/tododetail.wxml-->
 <van-nav-bar title='任务清单' left-text="返回" left-arrow bind:click-left="onClickLeft" />
-<van-field id="name" value="{{name}}" label="名称" placeholder="请输入名称" input-align="right" bind:change="onClose" />
-<van-field id="describe" value="{{describe}}" label="描述" placeholder="请输入描述" input-align="right" bind:change="onClose" />
-<van-field id="tag" value="{{tag}}" label="标签" placeholder="请输入标签" input-align="right" disabled="true" bind:change="onClose" />
+<van-field id="name" value="{{name}}" label="名称" placeholder="请输入新名称" input-align="left" bind:change="onClose" required="true" />
+<van-field id="describe" value="{{describe}}" label="描述" placeholder="暂时没有描述哦" input-align="left" bind:change="onClose" 
+autosize />
+<van-field id="tag" value="{{tag}}" label="标签"  input-align="left" disabled="true" bind:change="onClose" />
 <van-cell title="时间" is-link value="{{time}}" bind:click="chooseTime" />
-<van-button type="primary" size="large" bind:click="submit">确认</van-button>
+<van-button type="primary" size="large" bind:click="submit" color="linear-gradient(to right, #b721ff, #21d4fd)">确认修改</van-button>
 <van-popup show="{{ show }}" position="bottom" custom-style="height: 55%;">
   <van-datetime-picker type="datetime" value="{{ currentDate }}" bind:confirm="STime" bind:cancel="cancel" min-date="{{ minminute }}" formatter="{{ formatter }}" />
 </van-popup>
