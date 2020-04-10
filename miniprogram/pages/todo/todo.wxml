@@ -3,7 +3,7 @@
   <van-nav-bar title='任务清单' bind:click-left="openCalender">
     <van-icon name="/images/calender.png" slot="left" size="25px" custom-style="padding-bottom:10px;" />
   </van-nav-bar>
-  <van-calendar show="{{ show_calender }}" position="top" bind:close="onCloseCalender" bind:confirm="onConfirmCalender"  color="#87CEFA" min-date="{{minDate}}" max-date="{{maxDate}}"show-title="{{false}}"/>
+  <van-calendar show="{{ show_calender }}" position="top" bind:close="onCloseCalender" bind:confirm="onConfirmCalender"  color="#87CEFA" min-date="{{minDate}}" max-date="{{maxDate}}"show-title="{{false}}" default-date="{{calendar_day}}"/>
   <view wx:for="{{todos}}" wx:for-index="todoindex" wx:for-item="itemName">
     <van-swipe-cell right-width="{{ 60 }}" async-close bind:close="onClose" id="{{itemName.todoid}}">
       <van-radio-group value="{{ radio_finish }}" bind:change="onChangeFinish" id="{{itemName.todoid}}">

@@ -33,14 +33,14 @@
   src="/images/completed.png" />
   <text class="info-font">已完成:{{finished}}</text>
   </van-grid-item>
-  <van-grid-item use-slot text="已坚持天数" >
+  <van-grid-item use-slot text="已坚持天数">
   <image 
   style="width: 33%; height: 30px;"
   src="/images/insisted.png" />
   <text class="info-font">已坚持天数:{{insisted}}</text>
   </van-grid-item>
 </van-grid>
-<van-tabs type="line" color="rgb(65,105,225)" swipeable>
+<van-tabs type="line" color="rgb(65,105,225)" swipeable active="{{active}}" bind:change="onChange">
   <van-tab title="任务完成率">
    <view class="canvasBox">
     <view class='bigCircle'></view>
@@ -49,30 +49,6 @@
     </canvas>
   </view>
   </van-tab>
-  <!--不会，太难了画不出来>
-  <!-- <van-tab title="完成量统计">
-   <view class="charts-card">
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-    <view class="charts-card__header">本周统计</view>
-    <canvas class="charts-card__body" canvas-id="lineCanvas" bindtouchend="touchEndHandler">
-=======
-<<<<<<< HEAD
->>>>>>> master
-    <view class="charts-card__header">完成量统计</view>
-    <canvas class="charts-card__body" canvas-id="lineCanvas" bindtouchstart="touchHandler" bindtouchmove="moveHandler" bindtouchend="touchEndHandler">
-=======
-    <view class="charts-card__header">本周统计</view>
-    <canvas class="charts-card__body" canvas-id="lineCanvas" bindtouchend="touchEndHandler">
->>>>>>> master
-<<<<<<< HEAD
-=======
->>>>>>> master
->>>>>>> master
-    </canvas>
-  </view>
-  </van-tab> -->
   <van-tab title="任务统计">
    <view class="canvasBox-2">
     <van-row  style="top:20rpx;">

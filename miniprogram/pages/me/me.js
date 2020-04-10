@@ -3,6 +3,7 @@ const db = wx.cloud.database();
 var bar = null;
 Component({
   data: {
+    active:0,
     percentage:0,//百分比
     test:2,
     logged: false,
@@ -38,6 +39,11 @@ Component({
   attached: function() {
   },
   methods:{
+    onChange(event){
+      this.setData({
+        active:event.detail.name
+      })
+    },
     //展示弹出层
     showPopup() {
       this.setData({ show: true });
@@ -151,7 +157,7 @@ Component({
   pageLifetimes:{
     show() {
       let finished = app.globalData.sum_finished;
-      let sum = app.globalData.gftem.length + app.globalData.gtem.length;
+      let sum = app.globalData.gftem.length + app.globalData.gtem.length+app.globalData.guftem.length;
       if (sum == 0){
         tmp_percentage = 0;
       }
@@ -167,7 +173,8 @@ Component({
         'bardata[1].value': app.globalData.tag2,
         'bardata[2].value': app.globalData.tag3,
         'bardata[3].value': app.globalData.tag4,
-         percentage:tmp_percentage
+         percentage:tmp_percentage,
+         active:0
       })
       if (typeof this.getTabBar === 'function' &&
         this.getTabBar()) {
@@ -257,7 +264,7 @@ Component({
                 tag4: 0,
                 today_finished_task: { //今日完成任务情况
                   current_day: '',  //维护一个日期变量
-                  today_finished_sum: '',  //今日完成任务总数
+                  today_finished_sum: 0,  //今日完成任务总数
                   if_add: false  //是否坚持天数加一
                 },
               },

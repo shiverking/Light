@@ -25,12 +25,7 @@ Component({
     show: false,
     today_finished_task: { //今日完成任务情况
       current_day: '', //维护一个日期变量
-      today_finished_sum: '', //今日完成任务总数
-      if_add: false //是否坚持天数加一
-    },
-    today_finished_task_record: { //由数据库记录的今日完成任务情况
-      current_day: '', //维护一个日期变量
-      today_finished_sum: '', //今日完成任务总数
+      today_finished_sum: 0, //今日完成任务总数
       if_add: false //是否坚持天数加一
     },
     calendar_day: "", //日历显示的日期，首次打开时今日
@@ -129,24 +124,12 @@ Component({
         show_calender: true
       });
     },
-    onCloseCalender() {
+    onCloseCalender(event) {
       this.setData({
         show_calender: false
       });
-      this.finish(event.target.id);
     },
 
-    //打开日历
-    openCalender() {
-      this.setData({
-        show_calender: true
-      });
-    },
-    onCloseCalender() {
-      this.setData({
-        show_calender: false
-      });
-    },
     onClose(event) {
       const {
         position,
@@ -204,7 +187,8 @@ Component({
           app.globalData.sum_insisted += 1;
           this.data.today_finished_task.if_add = true;
         }
-        var array = app.globalData.gtem;
+        var array = app.globalData.gtem.concat(app.globalData.guftem);
+
         for (var index in array) {
           if (array[index].todoid === tid) {
             var temft = array[index].fathertag
@@ -219,7 +203,6 @@ Component({
             }
           }
         }
-        console.log(app.globalData.tag1)
         this.init();
       })
     },
@@ -352,52 +335,7 @@ Component({
           selected: 0
         })
       };
-      //查询数据库更新记录
-      var that = this
-      that.init()
-      var a = app.globalData.openid;
-      a = a.toString
-      const db = wx.cloud.database()
-      // 查询当前用户所有的 counters
-      db.collection('userlist').where({
-        _openid: "o5EIh5YQ94HhfOj3B - s_cEJsTV8M"
-      }).get({
-        success: res => {
-          that.setData({
-            sum_finished: res.data[0].sum_finished,
-            sum_insisted: res.data[0].sum_insisted,
-            tag1: res.data[0].tag1,
-            tag2: res.data[0].tag2,
-            tag3: res.data[0].tag3,
-            tag4: res.data[0].tag4,
-            today_finished_task_record: res.data[0].today_finished_task
-          })
-          if (that.data.tag1 < 0) {
-            that.data.tag1 = 0
-          };
-          if (that.data.tag2 < 0) {
-            that.data.tag2 = 0
-          };
-          if (that.data.tag3 < 0) {
-            that.data.tag3 = 0
-          };
-          if (that.data.tag4 < 0) {
-            that.data.tag4 = 0
-          };
-            app.globalData.tag1 = that.data.tag1,
-            app.globalData.tag2 = that.data.tag2,
-            app.globalData.tag3 = that.data.tag3,
-            app.globalData.tag4 = that.data.tag4,
-            app.globalData.sum_finished = that.data.sum_finished,
-            app.globalData.sum_insisted = that.data.sum_insisted
-          this.setData({
-            today_finished_task_record: that.data.today_finished_task_record,
-          })
-        },
-        fail: err => {
-          console.log(err)
-        }
-      })
+
       //构造今日日期 格式yyyy-mm-dd
       var today = new Date();
       var seperator1 = "-";
@@ -414,33 +352,67 @@ Component({
 
       this.setData({
         ["today_finished_task.current_day"]: currentdate,
-        calendar_day: today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate(), //设置今日日期
+        calendar_day: today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate(),//设置今日日期
       })
+      //查询数据库更新记录
+      var that = this
+      that.init()
+      var a = app.globalData.openid;
+      a = a.toString
+      const db = wx.cloud.database()
+      // 查询当前用户所有的 counters
+      db.collection('userlist').where({
+        _openid: a
+      }).get({
+        success: res => {
+          that.setData({
+            sum_finished: res.data[0].sum_finished,
+            sum_insisted: res.data[0].sum_insisted,
+            tag1: res.data[0].tag1,
+            tag2: res.data[0].tag2,
+            tag3: res.data[0].tag3,
+            tag4: res.data[0].tag4,
+            tmp_today_finished_task: res.data[0].today_finished_task
+          })
+          app.globalData.tag1 = that.data.tag1,
+          app.globalData.tag2 = that.data.tag2,
+          app.globalData.tag3 = that.data.tag3,
+          app.globalData.tag4 = that.data.tag4,
+          app.globalData.sum_finished = that.data.sum_finished,
+          app.globalData.sum_insisted = that.data.sum_insisted
 
-      //如果数据库记录的当前日期为空
-      if (this.data.today_finished_task_record.current_day == '') {
-        this.setData({ //用临时记录给数据库记录赋值
-          today_finished_task_record: this.data.today_finished_task,
-        })
-      } else {
-        if (new Date(Date.parse((this.data.today_finished_task_record.current_day).replace(/-/g, "/"))) < new Date(Date.parse((this.data.today_finished_task.current_day).replace(/-/g, "/")))) { //数据库记录的数据较晚
-          this.setData({
-            today_finished_task_record: this.data.today_finished_task, //用临时记录给数据库记录赋值
-          })
-        } else { //数据库与临时记录的时间相等
-          this.setData({
-            today_finished_task: this.data.today_finished_task_record, //用数据库记录给临时记录赋值
-          })
+          //如果数据库记录的当前日期为空
+          if (that.data.tmp_today_finished_task.current_day == '') {
+            this.setData({//用临时记录给数据库记录赋值
+              today_finished_task_record: this.data.today_finished_task,
+            })
+          }else {//数据库记录的不为空
+            if (this.data.today_finished_task_record.current_day == this.data.today_finished_task.current_day) { //数据库与临时记录的时间相等  
+              this.setData({
+                today_finished_task: that.data.tmp_today_finished_task,//用数据库记录给临时记录赋值
+              })
+            }
+          }
+          if (that.data.tag1 < 0) {
+            that.data.tag1 = 0
+          };
+          if (that.data.tag2 < 0) {
+            that.data.tag2 = 0
+          };
+          if (that.data.tag3 < 0) {
+            that.data.tag3 = 0
+          };
+          if (that.data.tag4 < 0) {
+            that.data.tag4 = 0
+          };
+        },
+        fail: err => {
+          console.log(err)
         }
-      }
+      })
+    
     },
     hide: function() {
-      this.setData({
-        today_finished_task_record: this.data.today_finished_task,
-      })
-      //存储数据
-
-      console.log("hide")
       var a = app.globalData.openid;
       a = a.toString
       wx.cloud.callFunction({
@@ -453,7 +425,7 @@ Component({
           tag2: app.globalData.tag2,
           tag3: app.globalData.tag3,
           tag4: app.globalData.tag4,
-          today_finished_task: this.data.today_finished_task_record
+          today_finished_task: this.data.today_finished_task
         }
       })
     }
