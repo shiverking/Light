@@ -14,7 +14,8 @@ exports.main = async (event, context) => {
           name: event.lname,
           time: event.ltime,
           tag:event.ltag,
-          describe:event.ldescribe
+          describe:event.ldescribe,
+          timestamp:event.ltimestamp
         },
       })
   } catch (e) {

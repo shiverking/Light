@@ -6,6 +6,7 @@ Page({
     time: "",
     name: "",
     describe: "",
+    timestamp:"",
     tag: "",
     eversettled: "",
     show: false,
@@ -104,6 +105,7 @@ Page({
     var time = new Date(event.detail)
     var now = this.formatDate(time)
     this.setData({
+      timestamp:event.detail,
       time: now,
       show: false
     })
@@ -121,7 +123,8 @@ Page({
         lname: this.data.name,
         ltime: this.data.time,
         ldescribe: this.data.describe,
-        ltag: this.data.tag
+        ltag: this.data.tag,
+        ltimestamp:this.data.timestamp
       }
     }).then(res => {
         wx.navigateBack({})
