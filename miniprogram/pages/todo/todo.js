@@ -2,6 +2,11 @@
 const app = getApp();
 Component({
   data: {
+
+    // finishclock:false,
+    previoustime: new Date().getTime(),
+    latertime: "",
+
     finish_icon: "/images/finish.png",
     normal_icon: "/images/circle.png",
     timeout_icon: "/images/timeout.png",
@@ -130,6 +135,18 @@ Component({
       });
     },
 
+    avoidClick() {
+      this.data.latertime = new Date().getTime()
+      if ((this.data.latertime - this.data.previoustime) < 350) {
+        this.data.previoustime = this.data.latertime
+        return false;
+      } else {
+        this.data.previoustime = this.data.latertime
+        return true;
+      }
+    },
+
+
     onClose(event) {
       const {
         position,
@@ -175,75 +192,79 @@ Component({
       }
     },
     finish(tid) {
-      wx.cloud.callFunction({
-        name: "finishtodobyid",
-        data: {
-          todoid: tid,
-        }
-      }).then(res => {
-        app.globalData.sum_finished += 1; //完成总数加一
-        this.data.today_finished_task.today_finished_sum += 1;
-        if (this.data.today_finished_task.if_add == false) { //天数还未加一
-          app.globalData.sum_insisted += 1;
-          this.data.today_finished_task.if_add = true;
-        }
-        var array = app.globalData.gtem.concat(app.globalData.guftem);
+      if (this.avoidClick() === true) {
+        wx.cloud.callFunction({
+          name: "finishtodobyid",
+          data: {
+            todoid: tid,
+          }
+        }).then(res => {
+          app.globalData.sum_finished += 1; //完成总数加一
+          this.data.today_finished_task.today_finished_sum += 1;
+          if (this.data.today_finished_task.if_add == false) { //天数还未加一
+            app.globalData.sum_insisted += 1;
+            this.data.today_finished_task.if_add = true;
+          }
+          var array = app.globalData.gtem.concat(app.globalData.guftem);
 
-        for (var index in array) {
-          if (array[index].todoid === tid) {
-            var temft = array[index].fathertag
-            if (temft === "我的") {
-              app.globalData.tag1 += 1
-            } else if (temft === "生活") {
-              app.globalData.tag2 += 1
-            } else if (temft === "运动") {
-              app.globalData.tag3 += 1
-            } else if (temft === "学习") {
-              app.globalData.tag4 += 1
+          for (var index in array) {
+            if (array[index].todoid === tid) {
+              var temft = array[index].fathertag
+              if (temft === "我的") {
+                app.globalData.tag1 += 1
+              } else if (temft === "生活") {
+                app.globalData.tag2 += 1
+              } else if (temft === "运动") {
+                app.globalData.tag3 += 1
+              } else if (temft === "学习") {
+                app.globalData.tag4 += 1
+              }
             }
           }
-        }
-        this.init();
-      })
+          this.init();
+        })
+      }
     },
     unfinish(tid) {
-      wx.cloud.callFunction({
-        name: "unfinishtodobyid",
-        data: {
-          todoid: tid,
-        }
-      }).then(res => {
-        if (app.globalData.sum_finished > 0) {
-          app.globalData.sum_finished -= 1; //完成总数减一
-        }
-
-        if (this.data.today_finished_task.today_finished_sum > 0) {
-          this.data.today_finished_task.today_finished_sum -= 1;
-        }
-
-        if (this.data.today_finished_task.today_finished_sum == 0) { //今日任务全部还原
-          this.data.today_finished_task.if_add = false; //修改为还未加一
-          if (app.globalData.sum_insisted > 0) {
-            app.globalData.sum_insisted -= 1;
+      if (this.avoidClick() === true) {
+        wx.cloud.callFunction({
+          name: "unfinishtodobyid",
+          data: {
+            todoid: tid,
           }
-        };
-        var array = app.globalData.gftem;
-        for (var index in array) {
-          if (array[index].todoid === tid) {
-            var temft = array[index].fathertag
-            if (temft === "我的" && app.globalData.tag1 >0) {
-              app.globalData.tag1 -=1
-            } else if (temft === "生活" && app.globalData.tag2 > 0) {
-              app.globalData.tag2 -= 1
-            } else if (temft === "运动" && app.globalData.tag3 > 0) {
-              app.globalData.tag3 -= 1
-            } else if (temft === "学习" && app.globalData.tag4 > 0) {
-              app.globalData.tag4 -= 1
+        }).then(res => {
+          if (app.globalData.sum_finished > 0) {
+            app.globalData.sum_finished -= 1; //完成总数减一
+          }
+
+          if (this.data.today_finished_task.today_finished_sum > 0) {
+            this.data.today_finished_task.today_finished_sum -= 1;
+          }
+
+          if (this.data.today_finished_task.today_finished_sum == 0) { //今日任务全部还原
+            this.data.today_finished_task.if_add = false; //修改为还未加一
+            if (app.globalData.sum_insisted > 0) {
+              app.globalData.sum_insisted -= 1;
+            }
+          };
+          var array = app.globalData.gftem;
+          for (var index in array) {
+            if (array[index].todoid === tid) {
+              var temft = array[index].fathertag
+              if (temft === "我的" && app.globalData.tag1 > 0) {
+                app.globalData.tag1 -= 1
+              } else if (temft === "生活" && app.globalData.tag2 > 0) {
+                app.globalData.tag2 -= 1
+              } else if (temft === "运动" && app.globalData.tag3 > 0) {
+                app.globalData.tag3 -= 1
+              } else if (temft === "学习" && app.globalData.tag4 > 0) {
+                app.globalData.tag4 -= 1
+              }
             }
           }
-        }
-        this.init();
-      })
+          this.init();
+        })
+      }
     },
     deletetodo(tid) {
       wx.cloud.callFunction({
@@ -352,7 +373,7 @@ Component({
 
       this.setData({
         ["today_finished_task.current_day"]: currentdate,
-        calendar_day: today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate(),//设置今日日期
+        calendar_day: today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate(), //设置今日日期
       })
       //查询数据库更新记录
       var that = this
@@ -375,21 +396,21 @@ Component({
             tmp_today_finished_task: res.data[0].today_finished_task
           })
           app.globalData.tag1 = that.data.tag1,
-          app.globalData.tag2 = that.data.tag2,
-          app.globalData.tag3 = that.data.tag3,
-          app.globalData.tag4 = that.data.tag4,
-          app.globalData.sum_finished = that.data.sum_finished,
-          app.globalData.sum_insisted = that.data.sum_insisted
+            app.globalData.tag2 = that.data.tag2,
+            app.globalData.tag3 = that.data.tag3,
+            app.globalData.tag4 = that.data.tag4,
+            app.globalData.sum_finished = that.data.sum_finished,
+            app.globalData.sum_insisted = that.data.sum_insisted
 
           //如果数据库记录的当前日期为空
           if (that.data.tmp_today_finished_task.current_day == '') {
-            this.setData({//用临时记录给数据库记录赋值
+            this.setData({ //用临时记录给数据库记录赋值
               today_finished_task_record: this.data.today_finished_task,
             })
-          }else {//数据库记录的不为空
+          } else { //数据库记录的不为空
             if (this.data.today_finished_task_record.current_day == this.data.today_finished_task.current_day) { //数据库与临时记录的时间相等  
               this.setData({
-                today_finished_task: that.data.tmp_today_finished_task,//用数据库记录给临时记录赋值
+                today_finished_task: that.data.tmp_today_finished_task, //用数据库记录给临时记录赋值
               })
             }
           }
@@ -410,7 +431,7 @@ Component({
           console.log(err)
         }
       })
-    
+
     },
     hide: function() {
       var a = app.globalData.openid;
